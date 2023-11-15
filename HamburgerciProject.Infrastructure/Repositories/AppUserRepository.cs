@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Domain.Entities.Concrete
+namespace HamburgerciProject.Infrastructure.Repositories
 {
-    public class BaseEntitiy
+    public class AppUserRepository : 
     {
     }
 }
