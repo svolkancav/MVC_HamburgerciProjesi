@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HamburgerciProject.Domain.Entities.BaseEntities;
+using HamburgerciProject.Domain.Enum;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace HamburgerciProject.Domain.Entities.Concrete
 {
-    public class AppUser
+    public class AppUser :IdentityUser, IBaseEntity
     {
-
+        public DateTime CreateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public DateTime? DeleteDate { get; set; }
+        public Status Status { get; set; }
+        public List<Siparis> Siparisler { get; set; }
     }
 }
