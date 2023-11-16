@@ -1,4 +1,4 @@
-﻿using MVC_HamburgerciProjesi.Models.Entities.Concrete;
+﻿using HamburgerciProject.Domain.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
