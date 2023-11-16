@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HamburgerciProject.Domain.Entities.Concrete
 {
-    public class AppUser :IdentityUser, IBaseEntity
+    public class AppUser :IdentityUser<Guid>, IBaseEntity
     {
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
