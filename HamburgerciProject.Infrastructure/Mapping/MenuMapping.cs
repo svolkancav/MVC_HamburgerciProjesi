@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Infrastructure.Repositories
+namespace HamburgerciProject.Infrastructure.Mapping
 {
-    public class UrunRepository
+    internal class MenuMapping
     {
     }
 }
