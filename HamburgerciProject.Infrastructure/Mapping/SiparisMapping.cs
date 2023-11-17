@@ -13,9 +13,6 @@ namespace HamburgerciProject.Infrastructure.Mapping
     {
         public void Configure(EntityTypeBuilder<Siparis> builder)
         {
-            builder.HasOne(s => s.User)
-                .WithMany(u => u.Siparisler)
-                .HasForeignKey(u => u.AppUserId);
 
             builder.HasMany(s=>s.Menuler)
                 .WithOne(m=>m.Siparis)

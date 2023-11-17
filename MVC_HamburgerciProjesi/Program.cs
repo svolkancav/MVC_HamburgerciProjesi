@@ -2,6 +2,7 @@ using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Context;
 using HamburgerciProject.Infrastructure.Repositories;
+using HamburgerciProject.Presentation.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",
