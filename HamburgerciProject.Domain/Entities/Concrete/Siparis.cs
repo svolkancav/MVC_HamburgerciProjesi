@@ -19,7 +19,6 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public Status Status { get; set; }
         public List<Menu> Menuler { get; set; }
         public List<EkstraMalzeme> EkstraMalzemeleri { get; set; }
-        public int AppUserId { get; set; }
-        public AppUser User { get; set; }
+
     }
 }

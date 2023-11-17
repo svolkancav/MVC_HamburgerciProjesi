@@ -11,6 +11,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; }
-        public List<Siparis> Siparisler { get; set; }
+        public string Password { get; set; }
+        public string UserRole { get; set; }
     }
 }

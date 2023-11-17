@@ -20,5 +20,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
 
         public int SiparisId { get; set; }
         public Siparis Siparis { get; set; }
+
+        //Todo: Menu ayrı Siparişin içerisindeki menüler ayrı tablo olmalı.
     }
 }
