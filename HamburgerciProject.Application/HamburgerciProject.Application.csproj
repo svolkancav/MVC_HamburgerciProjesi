@@ -6,4 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="AutoMapper\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="IoC\" />
+    <Folder Include="Models\VMs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HamburgerciProject.Domain\HamburgerciProject.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

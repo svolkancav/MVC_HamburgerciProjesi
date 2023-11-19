@@ -2,8 +2,8 @@
 {
     public enum Boyut
     {
-        Büyük,
-        Orta,
-        Küçük
+        Büyük = 1,
+        Orta = 2,
+        Küçük = 3
     }
 }

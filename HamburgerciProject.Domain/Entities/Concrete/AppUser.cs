@@ -13,5 +13,6 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public Status Status { get; set; }
         public string Password { get; set; }
         public string UserRole { get; set; }
+
     }
 }
