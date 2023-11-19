@@ -2,7 +2,7 @@
 using MVC_HamburgerciProjesi.Models;
 using System.Diagnostics;
 
-namespace MVC_HamburgerciProjesi.Controllers
+namespace HamburgerciProject.Presentation.Area.Admin.Controllers
 {
     public class HomeController : Controller
     {

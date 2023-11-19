@@ -197,7 +197,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Siparişler",
+                name: "Siparisler",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -212,9 +212,9 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Siparişler", x => x.Id);
+                    table.PrimaryKey("PK_Siparisler", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Siparişler_AspNetUsers_AppUserId",
+                        name: "FK_Siparisler_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -222,25 +222,25 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EkstraMalzemeSiparis",
+                name: "EkstraMalzemelerSiparis",
                 columns: table => new
                 {
-                    EkstraMalzemeleriId = table.Column<int>(type: "int", nullable: false),
-                    SiparislerId = table.Column<int>(type: "int", nullable: false)
+                    EkstraMalzemeId = table.Column<int>(type: "int", nullable: false),
+                    SiparisId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EkstraMalzemeSiparis", x => new { x.EkstraMalzemeleriId, x.SiparislerId });
+                    table.PrimaryKey("PK_EkstraMalzemelerSiparis", x => new { x.SiparisId, x.EkstraMalzemeId });
                     table.ForeignKey(
-                        name: "FK_EkstraMalzemeSiparis_EkstraMalzemeler_EkstraMalzemeleriId",
-                        column: x => x.EkstraMalzemeleriId,
+                        name: "FK_EkstraMalzemelerSiparis_EkstraMalzemeler_EkstraMalzemeId",
+                        column: x => x.EkstraMalzemeId,
                         principalTable: "EkstraMalzemeler",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EkstraMalzemeSiparis_Siparişler_SiparislerId",
-                        column: x => x.SiparislerId,
-                        principalTable: "Siparişler",
+                        name: "FK_EkstraMalzemelerSiparis_Siparisler_SiparisId",
+                        column: x => x.SiparisId,
+                        principalTable: "Siparisler",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -249,22 +249,22 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 name: "MenuSiparis",
                 columns: table => new
                 {
-                    MenulerId = table.Column<int>(type: "int", nullable: false),
-                    SiparislerId = table.Column<int>(type: "int", nullable: false)
+                    MenuId = table.Column<int>(type: "int", nullable: false),
+                    SiparisId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuSiparis", x => new { x.MenulerId, x.SiparislerId });
+                    table.PrimaryKey("PK_MenuSiparis", x => new { x.SiparisId, x.MenuId });
                     table.ForeignKey(
-                        name: "FK_MenuSiparis_Menuler_MenulerId",
-                        column: x => x.MenulerId,
+                        name: "FK_MenuSiparis_Menuler_MenuId",
+                        column: x => x.MenuId,
                         principalTable: "Menuler",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MenuSiparis_Siparişler_SiparislerId",
-                        column: x => x.SiparislerId,
-                        principalTable: "Siparişler",
+                        name: "FK_MenuSiparis_Siparisler_SiparisId",
+                        column: x => x.SiparisId,
+                        principalTable: "Siparisler",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -309,18 +309,18 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EkstraMalzemeSiparis_SiparislerId",
-                table: "EkstraMalzemeSiparis",
-                column: "SiparislerId");
+                name: "IX_EkstraMalzemelerSiparis_EkstraMalzemeId",
+                table: "EkstraMalzemelerSiparis",
+                column: "EkstraMalzemeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuSiparis_SiparislerId",
+                name: "IX_MenuSiparis_MenuId",
                 table: "MenuSiparis",
-                column: "SiparislerId");
+                column: "MenuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Siparişler_AppUserId",
-                table: "Siparişler",
+                name: "IX_Siparisler_AppUserId",
+                table: "Siparisler",
                 column: "AppUserId");
         }
 
@@ -342,7 +342,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "EkstraMalzemeSiparis");
+                name: "EkstraMalzemelerSiparis");
 
             migrationBuilder.DropTable(
                 name: "MenuSiparis");
@@ -357,7 +357,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 name: "Menuler");
 
             migrationBuilder.DropTable(
-                name: "Siparişler");
+                name: "Siparisler");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
