@@ -13,8 +13,11 @@ namespace HamburgerciProject.Presentation.SeedData
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
+                Guid guidKey = Guid.NewGuid();
+                //string guidKey = Guid.NewGuid().ToString();
                 AppDbContext context = scope.ServiceProvider.GetService<AppDbContext>();
                 context.Database.Migrate();
+                context.Users.Add(new AppUser() { UserName = "volkan", Email = "volkancavusoglu@hotmail.com", Password = "123", UserRole = "admin" });
                 if (!context.Siparişler.Any())
                 {
                     context.Siparişler.AddRange(
@@ -22,7 +25,7 @@ namespace HamburgerciProject.Presentation.SeedData
                         {
                            Adedi = 1,
                            CreateDate = DateTime.Now,
-                           EkstraMalzemeleri = new List<EkstraMalzeme>()
+                           EkstraMalzemeleri =
                            {
                                new EkstraMalzeme()
                                {
@@ -107,7 +110,7 @@ namespace HamburgerciProject.Presentation.SeedData
                         }
 
                          );
-                    context.Users.Add(new AppUser() { UserName = "volkan", Email = "volkancavusoglu@hotmail.com", Password = "123", UserRole = "admin" });
+                    
                 }
                 context.SaveChanges();
             }
