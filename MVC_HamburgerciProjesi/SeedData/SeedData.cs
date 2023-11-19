@@ -1,6 +1,5 @@
 ﻿using HamburgerciProject.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using Bogus;
 using HamburgerciProject.Domain.Entities.Concrete;
 using MVC_HamburgerciProjesi.Models.Enum;
 using HamburgerciProject.Domain.Enum;

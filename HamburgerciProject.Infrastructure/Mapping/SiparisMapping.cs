@@ -20,9 +20,6 @@ namespace HamburgerciProject.Infrastructure.Mapping
             builder.HasMany(s => s.EkstraMalzemeleri)
            .WithMany(e => e.Siparisler);
 
-            builder.HasOne(s => s.AppUser)
-                .WithMany(a => a.Siparişler)
-                .HasForeignKey(a => a.AppUserId);
 
 
         }
