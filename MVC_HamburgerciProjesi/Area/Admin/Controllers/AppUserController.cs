@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HamburgerciProject.Presentation.Controllers
+namespace HamburgerciProject.Presentation.Area.Admin.Controllers
 {
     public class AppUserController : Controller
     {

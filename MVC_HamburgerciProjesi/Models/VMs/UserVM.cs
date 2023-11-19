@@ -1,8 +1,22 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿
+using HamburgerciProject.Application.Models.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace HamburgerciProject.Presentation.Models.VMs
 {
-    public class UserVM:LoginDTO
+    public class UserVM
     {
+
+        [Display(Name = "Kullanıcı Adı")]
+        [Required(ErrorMessage = "Kullanıcı adı boş olamaz")]
+        [MaxLength(50)]
+        [MinLength(3, ErrorMessage = "Kullanıcı Adı 3 karakterden az olamaz")]
+        public string UserName { get; set; }
+
+
+        [Display(Name = "Şifre")]
+        [Required(ErrorMessage = "Şifre alanı boş olamaz")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

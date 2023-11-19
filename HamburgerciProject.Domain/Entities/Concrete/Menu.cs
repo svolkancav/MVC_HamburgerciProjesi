@@ -19,7 +19,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; }
-        public List<Siparis> Siparisler { get; set; }
+        public ICollection<MenuSiparis> MenuSiparis { get; set; }
 
         //Todo: Menu ayrı Siparişin içerisindeki menüler ayrı tablo olmalı.
     }

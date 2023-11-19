@@ -22,21 +22,6 @@ namespace HamburgerciProject.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("EkstraMalzemeSiparis", b =>
-                {
-                    b.Property<int>("EkstraMalzemeleriId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SiparislerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EkstraMalzemeleriId", "SiparislerId");
-
-                    b.HasIndex("SiparislerId");
-
-                    b.ToTable("EkstraMalzemeSiparis");
-                });
-
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -155,6 +140,21 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.ToTable("EkstraMalzemeler");
                 });
 
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzemelerSiparis", b =>
+                {
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EkstraMalzemeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SiparisId", "EkstraMalzemeId");
+
+                    b.HasIndex("EkstraMalzemeId");
+
+                    b.ToTable("EkstraMalzemelerSiparis");
+                });
+
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Menu", b =>
                 {
                     b.Property<int>("Id")
@@ -185,6 +185,21 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Menuler");
+                });
+
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.MenuSiparis", b =>
+                {
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SiparisId", "MenuId");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("MenuSiparis");
                 });
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Siparis", b =>
@@ -220,22 +235,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Siparişler");
-                });
-
-            modelBuilder.Entity("MenuSiparis", b =>
-                {
-                    b.Property<int>("MenulerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SiparislerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MenulerId", "SiparislerId");
-
-                    b.HasIndex("SiparislerId");
-
-                    b.ToTable("MenuSiparis");
+                    b.ToTable("Siparisler");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -369,45 +369,53 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EkstraMalzemeSiparis", b =>
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzemelerSiparis", b =>
                 {
-                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", null)
-                        .WithMany()
-                        .HasForeignKey("EkstraMalzemeleriId")
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", "ekstraMalzeme")
+                        .WithMany("EkstraMalzemelerSiparis")
+                        .HasForeignKey("EkstraMalzemeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Siparis", null)
-                        .WithMany()
-                        .HasForeignKey("SiparislerId")
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Siparis", "siparis")
+                        .WithMany("EkstraMalzemeSiparisler")
+                        .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ekstraMalzeme");
+
+                    b.Navigation("siparis");
+                });
+
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.MenuSiparis", b =>
+                {
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Menu", "menu")
+                        .WithMany("MenuSiparis")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Siparis", "siparis")
+                        .WithMany("MenuSiparisler")
+                        .HasForeignKey("SiparisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("menu");
+
+                    b.Navigation("siparis");
                 });
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Siparis", b =>
                 {
-                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.AppUser", "AppUser")
-                        .WithMany("Siparişler")
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.AppUser", "appUser")
+                        .WithMany("siparisler")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("MenuSiparis", b =>
-                {
-                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Menu", null)
-                        .WithMany()
-                        .HasForeignKey("MenulerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Siparis", null)
-                        .WithMany()
-                        .HasForeignKey("SiparislerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("appUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -463,7 +471,24 @@ namespace HamburgerciProject.Infrastructure.Migrations
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.AppUser", b =>
                 {
-                    b.Navigation("Siparişler");
+                    b.Navigation("siparisler");
+                });
+
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", b =>
+                {
+                    b.Navigation("EkstraMalzemelerSiparis");
+                });
+
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Menu", b =>
+                {
+                    b.Navigation("MenuSiparis");
+                });
+
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Siparis", b =>
+                {
+                    b.Navigation("EkstraMalzemeSiparisler");
+
+                    b.Navigation("MenuSiparisler");
                 });
 #pragma warning restore 612, 618
         }

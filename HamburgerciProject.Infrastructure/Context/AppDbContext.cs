@@ -18,14 +18,18 @@ namespace HamburgerciProject.Infrastructure.Context
             
         }
         public DbSet<EkstraMalzeme> EkstraMalzemeler { get; set; }
-        public DbSet<Siparis> Siparişler { get; set; }
+        public DbSet<Siparis> Siparisler { get; set; }
         public DbSet<Menu> Menuler { get; set; }
         public DbSet<AppUser> Users { get; set; }
+        //public DbSet<MenuSiparis> MenuSiparis { get; set; }
+        //public DbSet<EkstraMalzemelerSiparis> EkstraMalzemeSiparis { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            new SiparisMapping().Configure(builder.Entity<Siparis>());
+            new MenuSiparisMapping().Configure(builder.Entity<MenuSiparis>());
+            new EkstraMalzemelerSiparisMapping().Configure(builder.Entity<EkstraMalzemelerSiparis>());
 
             //mapping
             base.OnModelCreating(builder);
