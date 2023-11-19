@@ -27,9 +27,4 @@
     <ProjectReference Include="..\HamburgerciProject.Infrastructure\HamburgerciProject.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\AppUser\" />
-  </ItemGroup>
-
 </Project>
