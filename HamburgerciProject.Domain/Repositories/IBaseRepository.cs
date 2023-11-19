@@ -14,7 +14,8 @@ namespace HamburgerciProject.Domain.Repositories
         Task Create(T entity);
         Task Update(T entity);
         Task Delete(T entity);
-        Task<List<T>> GetAllAsync();
+        Task<T> GetDefault(Expression<Func<T, bool>> expression);
+        Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression);
         Task<TResult> GetFilteredFirstOrDefault<TResult>
            (
                Expression<Func<T, TResult>> select, // select
