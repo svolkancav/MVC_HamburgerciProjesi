@@ -16,7 +16,7 @@ namespace HamburgerciProject.Infrastructure.Repositories
     public class BaseRepository<T> : IBaseRepository<T> where T : class, IBaseEntity
     {
         private readonly AppDbContext _context;
-        protected DbSet<T> _table;
+        protected readonly DbSet<T> _table;
 
         public BaseRepository(AppDbContext context)
         {
@@ -35,9 +35,9 @@ namespace HamburgerciProject.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression)
         {
-            return await _table.ToListAsync();
+            return await _table.Where(expression).ToListAsync();
         }
 
         public async Task<TResult> GetFilteredFirstOrDefault<TResult>(Expression<Func<T, TResult>> select, Expression<Func<T, bool>> where, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
@@ -82,6 +82,11 @@ namespace HamburgerciProject.Infrastructure.Repositories
         {
             _context.Update(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<T> GetDefault(Expression<Func<T, bool>> expression)
+        {
+            return await _table.FirstOrDefaultAsync(expression);
         }
     }
 }

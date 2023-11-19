@@ -21,12 +21,12 @@ namespace HamburgerciProject.Application.Services.AppUserService
 
         public async Task<UpdateProfileDTO> GetByUserName(string userName)
         {
-            //servis repositoryye ulaşır
+            
             UpdateProfileDTO result = await _appUserRepository.GetFilteredFirstOrDefault(
                 select: x => new UpdateProfileDTO
                 {
                     UserName = x.UserName,
-                    Id = x.Id,
+                    Id = x.Id.ToString(),
                     Password = x.PasswordHash,
                     Email = x.Email,
                     
@@ -57,18 +57,26 @@ namespace HamburgerciProject.Application.Services.AppUserService
             };
             IdentityResult result = await _UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
-            {
+            
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return result;
-            }
-            else 
-
-
         }
 
-        public Task UpdateUser(UpdateProfileDTO model)
+        public async Task UpdateUser(UpdateProfileDTO model)
         {
-            throw new NotImplementedException();
+            AppUser user = await _appUserRepository.GetDefault(x => x.Id.ToString() == model.Id);
+            if (model.Password != null)
+            {
+                _UserManager.PasswordHasher.HashPassword(user, model.Password);
+                await _UserManager.UpdateAsync(user);
+            }
+            if (model.Email != null)
+            {
+                AppUser isUserEmailExists = await _UserManager.FindByEmailAsync(model.Email);
+                if (isUserEmailExists == null)
+                    await _UserManager.SetEmailAsync(user, model.Email);
+
+            }
         }
     }
 }
