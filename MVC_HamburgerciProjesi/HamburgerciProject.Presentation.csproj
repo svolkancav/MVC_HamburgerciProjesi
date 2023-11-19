@@ -24,10 +24,10 @@
     <ProjectReference Include="..\HamburgerciProject.Domain\HamburgerciProject.Domain.csproj" />
     <ProjectReference Include="..\HamburgerciProject.Infrastructure\HamburgerciProject.Infrastructure.csproj" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Folder Include="Area\Users\Views\" />
     <Folder Include="Views\AppUser\" />
   </ItemGroup>
-
+  
 </Project>
