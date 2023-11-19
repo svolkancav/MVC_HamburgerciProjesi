@@ -14,13 +14,16 @@ namespace HamburgerciProject.Infrastructure.Mapping
         public void Configure(EntityTypeBuilder<Siparis> builder)
         {
 
-            builder.HasMany(s=>s.Menuler)
-                .WithOne(m=>m.Siparis)
-                .HasForeignKey(m=>m.SiparisId);
+            builder.HasMany(s => s.Menuler)
+                .WithMany(m => m.Siparisler);
 
             builder.HasMany(s => s.EkstraMalzemeleri)
-           .WithOne(e => e.Siparis)
-           .HasForeignKey(e => e.SiparisId);
+           .WithMany(e => e.Siparisler);
+
+            builder.HasOne(s => s.AppUser)
+                .WithMany(a => a.Siparişler)
+                .HasForeignKey(a => a.AppUserId);
+
 
         }
 

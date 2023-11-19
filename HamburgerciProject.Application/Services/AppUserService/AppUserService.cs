@@ -26,7 +26,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
                 select: x => new UpdateProfileDTO
                 {
                     UserName = x.UserName,
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     Password = x.PasswordHash,
                     Email = x.Email,
                     
@@ -64,7 +64,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
 
         public async Task UpdateUser(UpdateProfileDTO model)
         {
-            AppUser user = await _appUserRepository.GetDefault(x => x.Id.ToString() == model.Id);
+            AppUser user = await _appUserRepository.GetDefault(x => x.Id == model.Id);
             if (model.Password != null)
             {
                 _UserManager.PasswordHasher.HashPassword(user, model.Password);
