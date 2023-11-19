@@ -3,6 +3,7 @@ using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Enum;
 using MVC_HamburgerciProjesi.Models.Enum;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HamburgerciProject.Domain.Entities.Concrete
 {
@@ -17,8 +18,14 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; }
-        public List<Menu> Menuler { get; set; }
-        public List<EkstraMalzeme> EkstraMalzemeleri { get; set; }
+        public AppUser appUser { get; set; }
+
+        [ForeignKey(nameof(AppUser))]
+        public Guid AppUserId { get; set; }
+        public ICollection<MenuSiparis> MenuSiparisler{ get; set; }
+        public ICollection<EkstraMalzemelerSiparis> EkstraMalzemeSiparisler{ get; set; }
+
+        
 
     }
 }

@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
+using HamburgerciProject.Application.Models.DTOs;
 
-
-namespace HamburgerciProject.Presentation.Controllers
+namespace HamburgerciProject.Presentation.Area.Admin.Controllers
 {
     public class AccountController : Controller
     {
