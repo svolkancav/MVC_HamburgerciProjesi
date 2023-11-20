@@ -11,6 +11,8 @@ namespace HamburgerciProject.Application.Models.DTOs
 {
     public class RegisterDTO
     {
+        public int Id { get; set; }
+
         [Display(Name = "Kullanıcı Adı")]
         [Required(ErrorMessage = "Kullanıcı adı boş olamaz")]
         [MaxLength(50)]
@@ -22,6 +24,9 @@ namespace HamburgerciProject.Application.Models.DTOs
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string ConfirmedPassword { get; set; }
+        public int? Code { get; set; }
+
+        public string UserRole => "User";
         public string Email { get; set; }
         public DateTime CreateDate => DateTime.Now;
         public Status status => Status.Active;
