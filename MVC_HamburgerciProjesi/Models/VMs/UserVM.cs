@@ -18,5 +18,9 @@ namespace HamburgerciProject.Presentation.Models.VMs
         [Required(ErrorMessage = "Şifre alanı boş olamaz")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Display(Name = "Email Adresiniz")]
+        [Required(ErrorMessage = "EMail alanı boş olamaz")]
+        public string EMail { get; set; }
     }
 }

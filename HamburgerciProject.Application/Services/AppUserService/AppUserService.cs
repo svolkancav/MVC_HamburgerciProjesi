@@ -1,7 +1,12 @@
 ﻿using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using MimeKit;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace HamburgerciProject.Application.Services.AppUserService
@@ -18,6 +23,17 @@ namespace HamburgerciProject.Application.Services.AppUserService
             _UserManager = userManager;
         }
 
+        public async Task<RegisterDTO> GetById(int id)
+        {
+            AppUser appuser = await _appUserRepository.GetDefault(x => x.Id == id);
+            RegisterDTO register = new RegisterDTO()
+            {
+                Id = appuser.Id,
+                Code = appuser.ConfirmCode,
+                Email = appuser.Email
+            };
+            return register;
+        }
 
         public async Task<UpdateProfileDTO> GetByUserName(string userName)
         {
@@ -27,7 +43,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
                 {
                     UserName = x.UserName,
                     Id = x.Id,
-                    Password = x.PasswordHash,
+                    Password = x.Password,
                     Email = x.Email,
                     
                 },
@@ -36,7 +52,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
             return result;
         }
 
-        public async Task<SignInResult> Login(LoginDTO model)
+        public async Task<Microsoft.AspNetCore.Identity.SignInResult> Login(LoginDTO model)
         {
             return await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
 
@@ -47,19 +63,28 @@ namespace HamburgerciProject.Application.Services.AppUserService
             await _signInManager.SignOutAsync();
         }
 
+        
         public async Task<IdentityResult> Register(RegisterDTO model)
         {
+
+
+            Random rnd = new Random();
+            int code;
+            code = rnd.Next(100000, 1000000);
             AppUser user = new AppUser()
             {
                 UserName = model.UserName,
                 Email = model.Email,
                 CreateDate = model.CreateDate,
+                Password= model.Password,
+                ConfirmCode=model.Code,
+                Status = Domain.Enum.Status.Inactive
             };
-            IdentityResult result = await _UserManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
+
             
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return result;
+            IdentityResult result = await _UserManager.CreateAsync(user, model.Password);
+        
+            return result;
         }
 
         public async Task UpdateUser(UpdateProfileDTO model)

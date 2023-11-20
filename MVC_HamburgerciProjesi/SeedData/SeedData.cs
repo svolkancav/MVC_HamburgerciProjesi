@@ -18,7 +18,7 @@ namespace HamburgerciProject.Presentation.SeedData
                 //string guidKey = Guid.NewGuid().ToString();
                 AppDbContext context = scope.ServiceProvider.GetService<AppDbContext>();
                 context.Database.Migrate();
-               
+
                 //if (!context.Siparişler.Any())
                 //{
                 //    context.EkstraMalzemeler
@@ -106,10 +106,12 @@ namespace HamburgerciProject.Presentation.SeedData
                 //        }
 
                 //         );
-
+                if (!context.Users.Any())
+                {
                     context.Users.Add(new AppUser() { UserName = "volkan", Email = "volkancavusoglu@hotmail.com", Password = "123", UserRole = "admin" });
-                //}
-                context.SaveChanges();
+                    //}
+                    context.SaveChanges();
+                }
             }
         }
     }

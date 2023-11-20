@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HamburgerciProject.Infrastructure.Context
 {
-    public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>,Guid>
+    public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<int>, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
