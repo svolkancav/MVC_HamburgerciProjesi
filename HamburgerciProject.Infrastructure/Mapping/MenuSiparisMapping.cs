@@ -14,21 +14,11 @@ namespace HamburgerciProject.Infrastructure.Mapping
     {
         public void Configure(EntityTypeBuilder<MenuSiparis> builder)
         {
-
             builder.HasKey(s => new { s.SiparisId, s.MenuId });
-            builder.HasOne(s => s.siparis).WithMany(m => m.MenuSiparisler).HasForeignKey(f=>f.SiparisId); 
-            
-            
-            
-            builder.HasOne(s => s.menu).WithMany(m => m.MenuSiparis).HasForeignKey(f=>f.MenuId);
 
+            builder.HasOne(s => s.siparis).WithMany(m => m.Menuler).HasForeignKey(f=>f.SiparisId); 
 
-
-
-
-
-
-
+            builder.HasOne(s => s.menu).WithMany(m => m.Siparisler).HasForeignKey(f=>f.MenuId);
 
         }
 

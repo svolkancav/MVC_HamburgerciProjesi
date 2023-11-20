@@ -25,7 +25,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public ICollection<MenuSiparis> MenuSiparisler{ get; set; }
         public ICollection<EkstraMalzemelerSiparis> EkstraMalzemeSiparisler{ get; set; }
 
-        
+
 
     }
 }

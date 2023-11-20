@@ -16,7 +16,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; }
-        public ICollection<EkstraMalzemelerSiparis> EkstraMalzemelerSiparis { get; set; }
+        public ICollection<EkstraMalzemelerSiparis> Siparisler { get; set; }
       
 
     }

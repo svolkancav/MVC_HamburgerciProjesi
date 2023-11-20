@@ -15,17 +15,10 @@ namespace HamburgerciProject.Infrastructure.Mapping
         {
 
             builder.HasKey(s => new { s.SiparisId, s.EkstraMalzemeId });
-            builder.HasOne(s => s.siparis).WithMany(m => m.EkstraMalzemeSiparisler).HasForeignKey(f => f.SiparisId);
 
+            builder.HasOne(s => s.siparis).WithMany(m => m.EkstraMalzemeler).HasForeignKey(f => f.SiparisId);
 
-
-            builder.HasOne(s => s.ekstraMalzeme).WithMany(m => m.EkstraMalzemelerSiparis).HasForeignKey(f => f.EkstraMalzemeId);
-
-
-
-
-
-
+            builder.HasOne(s => s.ekstraMalzeme).WithMany(m => m.Siparisler).HasForeignKey(f => f.EkstraMalzemeId);
 
         }
     }
