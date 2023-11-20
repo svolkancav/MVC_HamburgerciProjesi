@@ -48,7 +48,7 @@ namespace HamburgerciProject.Presentation.Area.Users.Controllers
                 Email = registerDTO.Email,
                 CreateDate = registerDTO.CreateDate,
                 Password = registerDTO.Password,
-                ConfirmCode = registerDTO.Code,
+                //ConfirmCode = registerDTO.Code,
                 Status = Domain.Enum.Status.Inactive
             };
 
