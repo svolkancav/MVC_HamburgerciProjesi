@@ -10,10 +10,8 @@ namespace HamburgerciProject.Domain.Entities.Concrete
     public class EkstraMalzemelerSiparis
     {
         public EkstraMalzeme ekstraMalzeme { get; set; }
-       
         public int EkstraMalzemeId { get; set; }
         public Siparis siparis { get; set; }
-       
         public int SiparisId { get; set; }
 
     }

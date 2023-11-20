@@ -6,6 +6,7 @@ using HamburgerciProject.Application.Models.DTOs;
 
 namespace HamburgerciProject.Presentation.Area.Admin.Controllers
 {
+    [Area("Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _usermanager;

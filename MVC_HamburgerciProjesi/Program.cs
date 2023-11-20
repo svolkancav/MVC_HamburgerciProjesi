@@ -1,3 +1,7 @@
+using HamburgerciProject.Application.Services.AppUserService;
+using HamburgerciProject.Application.Services.EkstraMalzemeServices;
+using HamburgerciProject.Application.Services.MenuServices;
+using HamburgerciProject.Application.Services.SiparisServices;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Context;
@@ -12,12 +16,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
+
+builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
+
     (
     options => options.SignIn.RequireConfirmedAccount = true
     ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddTransient<IMenuService, MenuService>();
+builder.Services.AddTransient<IAppUserService, AppUserService>();
+builder.Services.AddTransient<IEkstraMalzemeService, EkstraMalzemeService>();
+builder.Services.AddTransient<ISiparisService, SiparisService>();
 
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
@@ -47,5 +59,17 @@ SeedData.Seed(app);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "UserArea",
+    areaName: "User",
+    pattern: "{UserArea}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+app.MapAreaControllerRoute(
+    name: "AdminArea",
+    areaName: "Admin",
+    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
+    );
 
 app.Run();

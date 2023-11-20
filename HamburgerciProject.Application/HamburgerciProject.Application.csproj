@@ -8,9 +8,7 @@
 
   <ItemGroup>
     <Folder Include="AutoMapper\" />
-    <Folder Include="Extensions\" />
     <Folder Include="IoC\" />
-    <Folder Include="Models\VMs\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +23,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>

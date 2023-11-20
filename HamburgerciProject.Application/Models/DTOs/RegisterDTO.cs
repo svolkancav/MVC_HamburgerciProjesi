@@ -1,4 +1,5 @@
-﻿using HamburgerciProject.Domain.Enum;
+﻿using HamburgerciProject.Application.Validations;
+using HamburgerciProject.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,9 @@ namespace HamburgerciProject.Application.Models.DTOs
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string ConfirmedPassword { get; set; }
+
+        [Required(ErrorMessage ="Mail adresi boş olamaz")]
+        [EmailValidation(ErrorMessage = "E-posta adresi @bilgeadam.com, @hotmail.com veya @gmail.com ile sonlanmalıdır ve boşluk içermemelidir.")]
         public string Email { get; set; }
         public DateTime CreateDate => DateTime.Now;
         public Status status => Status.Active;

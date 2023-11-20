@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HamburgerciProject.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231119124657_first")]
-    partial class first
+    [Migration("20231119172826_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,6 +170,9 @@ namespace HamburgerciProject.Infrastructure.Migrations
 
                     b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MenuAdi")
                         .IsRequired()
@@ -374,13 +377,13 @@ namespace HamburgerciProject.Infrastructure.Migrations
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzemelerSiparis", b =>
                 {
                     b.HasOne("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", "ekstraMalzeme")
-                        .WithMany("EkstraMalzemelerSiparis")
+                        .WithMany("Siparisler")
                         .HasForeignKey("EkstraMalzemeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Siparis", "siparis")
-                        .WithMany("EkstraMalzemeSiparisler")
+                        .WithMany("EkstraMalzemeler")
                         .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -393,13 +396,13 @@ namespace HamburgerciProject.Infrastructure.Migrations
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.MenuSiparis", b =>
                 {
                     b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Menu", "menu")
-                        .WithMany("MenuSiparis")
+                        .WithMany("Siparisler")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Siparis", "siparis")
-                        .WithMany("MenuSiparisler")
+                        .WithMany("Menuler")
                         .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -478,19 +481,19 @@ namespace HamburgerciProject.Infrastructure.Migrations
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", b =>
                 {
-                    b.Navigation("EkstraMalzemelerSiparis");
+                    b.Navigation("Siparisler");
                 });
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Menu", b =>
                 {
-                    b.Navigation("MenuSiparis");
+                    b.Navigation("Siparisler");
                 });
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Siparis", b =>
                 {
-                    b.Navigation("EkstraMalzemeSiparisler");
+                    b.Navigation("EkstraMalzemeler");
 
-                    b.Navigation("MenuSiparisler");
+                    b.Navigation("Menuler");
                 });
 #pragma warning restore 612, 618
         }
