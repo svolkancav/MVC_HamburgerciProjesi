@@ -1,3 +1,4 @@
+using HamburgerciProject.Application.Services.AppUserService;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Context;
@@ -17,8 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
 
+builder.Services.AddIdentity<AppUser, IdentityRole<int>>
     (
     options => options.SignIn.RequireConfirmedAccount = true
     ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
