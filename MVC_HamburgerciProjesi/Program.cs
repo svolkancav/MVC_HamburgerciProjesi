@@ -1,11 +1,14 @@
 using HamburgerciProject.Application.Services.AppUserService;
+
 using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using HamburgerciProject.Application.Services.MenuServices;
 using HamburgerciProject.Application.Services.SiparisServices;
+
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Context;
 using HamburgerciProject.Infrastructure.Repositories;
+using HamburgerciProject.Presentation.Models;
 using HamburgerciProject.Presentation.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +23,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
+
+builder.Services.AddIdentity<AppUser, IdentityRole<int>>
 
     (
     options => options.SignIn.RequireConfirmedAccount = true
@@ -32,11 +36,14 @@ builder.Services.AddTransient<IEkstraMalzemeService, EkstraMalzemeService>();
 builder.Services.AddTransient<ISiparisService, SiparisService>();
 
 
+
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient<IMenuRepository, MenuRepository>();
 builder.Services.AddTransient<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
 builder.Services.AddTransient<ISiparisRepository, SiparisRepository>();
 builder.Services.AddTransient<IAppUserRepository, AppUserRepository>();
+builder.Services.AddTransient<IAppUserService, AppUserService >();
+
 
 var app = builder.Build();
 

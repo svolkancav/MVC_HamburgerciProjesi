@@ -19,6 +19,42 @@ namespace HamburgerciProject.Presentation.SeedData
                 AppDbContext context = scope.ServiceProvider.GetService<AppDbContext>();
                 context.Database.Migrate();
 
+                //if (!context.Siparişler.Any())
+                //{
+                //    context.EkstraMalzemeler
+                //    context.Siparişler.AddRange(
+                //        new Siparis()
+                //        {
+                //           Adedi = 1,
+                //           CreateDate = DateTime.Now,
+                //           EkstraMalzemeleri =
+                //           {
+                //               new EkstraMalzeme()
+                //               {
+                //                   EkstraAdi ="Range Sos",
+                //                   EkstraFiyat = 6,
+                //                   CreateDate = DateTime.Now
+                //               },
+                //               new EkstraMalzeme()
+                //               {
+                //                   EkstraAdi ="Ketçap",
+                //                   EkstraFiyat = 3,
+                //                   CreateDate = DateTime.Now,
+                //               },
+                //               new EkstraMalzeme()
+                //               {
+                //                   EkstraAdi ="Mayonez",
+                //                   EkstraFiyat = 3,
+                //                   CreateDate = DateTime.Now,
+                //               },
+                //               new EkstraMalzeme()
+                //               {
+                //                   EkstraAdi ="Hardal",
+                //                   EkstraFiyat = 3,
+                //                   CreateDate = DateTime.Now,
+                //               },
+
+
                 if (!context.EkstraMalzemeler.Any())
                 {
                     context.EkstraMalzemeler.AddRange(
@@ -147,8 +183,10 @@ namespace HamburgerciProject.Presentation.SeedData
                     await context.SaveChangesAsync();
 
 
+
                 }
                 
+
 
             }
         }
