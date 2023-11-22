@@ -1,0 +1,93 @@
+﻿@model HamburgerciProject.Application.Models.DTOs.RegisterDTO
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<h2 class="fs-1 text-white">SIGN UP</h2>
+<hr />
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Şifre:</label>
+                <input asp-for="Password" class="form-control">
+                <span asp-validation-for="Password" class="text-white"></span>
+                <br />
+              
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmedPassword" class="form-label">Şifre Tekrar:</label>
+                <input asp-for="ConfirmedPassword" class="form-control">
+                <span asp-validation-for="ConfirmedPassword" class="text-white"></span>
+                </div>
+           <div class="text-white" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <button style="color:bisque">
+                    <a style="text-decoration:none; color:black">Kayıt Ol</a>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+*@
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label">Kullanıcı Adınız</label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email Adresiniz</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Şifre</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmedPassword" class="control-label">Şifre Tekrar</label>
+                <input asp-for="ConfirmedPassword" class="form-control" />
+                <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

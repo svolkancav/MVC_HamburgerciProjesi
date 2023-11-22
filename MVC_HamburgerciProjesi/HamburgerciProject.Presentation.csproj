@@ -7,18 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Area\**" />
+    <Content Remove="Area\**" />
+    <EmbeddedResource Remove="Area\**" />
+    <None Remove="Area\**" />
+  </ItemGroup>
 
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.23" />
-
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.MailKitMailer" Version="1.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-    <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,11 +34,8 @@
     <ProjectReference Include="..\HamburgerciProject.Infrastructure\HamburgerciProject.Infrastructure.csproj" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <Folder Include="Area\Users\Views\" />
     <Folder Include="Views\AppUser\" />
   </ItemGroup>
-
 
 </Project>

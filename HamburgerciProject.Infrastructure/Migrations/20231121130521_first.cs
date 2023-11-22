@@ -83,6 +83,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MenuAdi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MenuFiyati = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true),

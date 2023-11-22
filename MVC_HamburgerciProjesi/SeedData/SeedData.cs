@@ -19,40 +19,85 @@ namespace HamburgerciProject.Presentation.SeedData
                 AppDbContext context = scope.ServiceProvider.GetService<AppDbContext>();
                 context.Database.Migrate();
 
-                //if (!context.Siparişler.Any())
-                //{
-                //    context.EkstraMalzemeler
-                //    context.Siparişler.AddRange(
-                //        new Siparis()
-                //        {
-                //           Adedi = 1,
-                //           CreateDate = DateTime.Now,
-                //           EkstraMalzemeleri =
-                //           {
-                //               new EkstraMalzeme()
-                //               {
-                //                   EkstraAdi ="Range Sos",
-                //                   EkstraFiyat = 6,
-                //                   CreateDate = DateTime.Now
-                //               },
-                //               new EkstraMalzeme()
-                //               {
-                //                   EkstraAdi ="Ketçap",
-                //                   EkstraFiyat = 3,
-                //                   CreateDate = DateTime.Now,
-                //               },
-                //               new EkstraMalzeme()
-                //               {
-                //                   EkstraAdi ="Mayonez",
-                //                   EkstraFiyat = 3,
-                //                   CreateDate = DateTime.Now,
-                //               },
-                //               new EkstraMalzeme()
-                //               {
-                //                   EkstraAdi ="Hardal",
-                //                   EkstraFiyat = 3,
-                //                   CreateDate = DateTime.Now,
-                //               },
+                if (!context.EkstraMalzemeler.Any())
+                {
+                    context.EkstraMalzemeler.AddRange(
+                        new EkstraMalzeme()
+                        {
+                            EkstraAdi = "Range Sos",
+                            EkstraFiyat = 6,
+                            CreateDate = DateTime.Now
+                        },
+                        new EkstraMalzeme()
+                        {
+                            EkstraAdi = "Ketçap",
+                            EkstraFiyat = 3,
+                            CreateDate = DateTime.Now,
+                        },
+                        new EkstraMalzeme()
+                        {
+                            EkstraAdi = "Mayonez",
+                            EkstraFiyat = 3,
+                            CreateDate = DateTime.Now,
+                        },
+                        new EkstraMalzeme()
+                        {
+                            EkstraAdi = "Hardal",
+                            EkstraFiyat = 3,
+                            CreateDate = DateTime.Now,
+                        }
+                        );
+                    await context.SaveChangesAsync();
+                }
+
+                if (!context.Menuler.Any())
+                {
+                    context.Menuler.AddRange(
+                        new Menu()
+                        {
+                            MenuAdi = "SteakHouse Menü",
+                            MenuFiyati = 50,
+                            Status = Status.Active,
+                            CreateDate = DateTime.Now,
+                        },
+                        new Menu()
+                        {
+                            MenuAdi = "BigKing Menü",
+                            MenuFiyati = 70,
+                            Status = Status.Active,
+                            CreateDate = DateTime.Now,
+                        },
+                        new Menu()
+                        {
+                            MenuAdi = "Double King Chicken Menü",
+                            MenuFiyati = 70,
+                            Status = Status.Active,
+                            CreateDate = DateTime.Now,
+                        },
+                        new Menu()
+                        {
+                            MenuAdi = "Wooper Menü",
+                            MenuFiyati = 60,
+                            Status = Status.Active,
+                            CreateDate = DateTime.Now,
+                        },
+                        new Menu()
+                        {
+                            MenuAdi = "Wooper Jr. Menü",
+                            MenuFiyati = 50,
+                            Status = Status.Active,
+                            CreateDate = DateTime.Now,
+                        },
+                        new Menu()
+                        {
+                            MenuAdi = "Chicken Royal Menü",
+                            MenuFiyati = 70,
+                            Status = Status.Active,
+                            CreateDate = DateTime.Now,
+                        }
+                        );
+                    await context.SaveChangesAsync();
+                }
 
 
                 if (!context.EkstraMalzemeler.Any())
@@ -168,7 +213,7 @@ namespace HamburgerciProject.Presentation.SeedData
                                 EkstraMalzemeId = 2,
                             }
                         },
-                        appUser = new() 
+                        appUser = new()
                         {
                             CreateDate = DateTime.Now,
                             UserName = "volkan",
@@ -184,10 +229,14 @@ namespace HamburgerciProject.Presentation.SeedData
 
 
 
+                    //         );
+                    if (!context.Users.Any())
+                    {
+                        context.Users.Add(new AppUser() { UserName = "volkan", Email = "volkancavusoglu@hotmail.com", Password = "123", UserRole = "admin" });
+                        //}
+                        context.SaveChanges();
+                    }
                 }
-                
-
-
             }
         }
     }

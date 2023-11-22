@@ -24,7 +24,8 @@ namespace HamburgerciProject.Domain.Entities.Concrete
 
         public int AppUserId { get; set; }
         public ICollection<MenuSiparis> Menuler{ get; set; }
-        public ICollection<EkstraMalzemelerSiparis> EkstraMalzemeler{ get; set; }
+
+        public ICollection<EkstraMalzemelerSiparis> EkstraMalzemeler { get; set; }
 
 
 
