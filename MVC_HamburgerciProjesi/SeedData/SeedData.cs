@@ -236,6 +236,7 @@ namespace HamburgerciProject.Presentation.SeedData
                         //}
                         context.SaveChanges();
                     }
+                }
             }
         }
     }

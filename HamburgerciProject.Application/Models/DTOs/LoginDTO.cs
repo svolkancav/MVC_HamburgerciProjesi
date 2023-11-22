@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HamburgerciProject.Domain.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,5 +21,9 @@ namespace HamburgerciProject.Application.Models.DTOs
         [Required(ErrorMessage = "Şifre alanı boş olamaz")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+
+        public string ReturnUrl { get; set; }
+       
     }
 }
