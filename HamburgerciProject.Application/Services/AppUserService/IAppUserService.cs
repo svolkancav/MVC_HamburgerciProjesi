@@ -10,7 +10,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
 {
     public interface IAppUserService
     {
-        Task<IdentityResult> Register(RegisterDTO model);
+        //Task<IdentityResult> Register(RegisterDTO model);
         Task<SignInResult> Login(LoginDTO model);
         Task<RegisterDTO> GetById(int id);
         Task<UpdateProfileDTO> GetByUserName(string userName);

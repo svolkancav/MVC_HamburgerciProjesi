@@ -1,11 +1,16 @@
 using HamburgerciProject.Application.Services.AppUserService;
+using HamburgerciProject.Application.Services.EkstraMalzemeServices;
+using HamburgerciProject.Application.Services.MenuServices;
+using HamburgerciProject.Application.Services.SiparisServices;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Context;
 using HamburgerciProject.Infrastructure.Repositories;
 using HamburgerciProject.Presentation.Models;
 using HamburgerciProject.Presentation.SeedData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,15 +19,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
+    builder.Configuration.GetConnectionString("DefaultConnectionFeyza")));
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 
 
 builder.Services.AddIdentity<AppUser, IdentityRole<int>>
     (
-    options => options.SignIn.RequireConfirmedAccount = true
-    ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+    options => options.SignIn.RequireConfirmedEmail = true
+    ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<IdentityValidator>();
+
+
+//builder.Services.AddMvc(options =>
+//{
+//    var policy= new AuthorizationPolicyBuilder()
+//    .RequireAuthenticatedUser().Build();
+//    options.Filters.Add(new AuthorizeFilter(policy));
+//}
+//).AddXmlSerializerFormatters();
 
 builder.Services.AddTransient<IMenuService, MenuService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
@@ -59,13 +73,18 @@ SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}");
 
 app.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
     pattern: "{UserArea}/{controller=Home}/{action=Index}/{id?}"
     );
+//app.MapAreaControllerRoute(
+//    name: "UserArea",
+//    areaName: "User",
+//    pattern: "{controller=Account}/{action=Register}"
+//    );
 
 app.MapAreaControllerRoute(
     name: "AdminArea",

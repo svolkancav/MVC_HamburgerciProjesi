@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Area\**" />
+    <Content Remove="Area\**" />
+    <EmbeddedResource Remove="Area\**" />
+    <None Remove="Area\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.MailKitMailer" Version="1.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
@@ -27,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Area\Users\Views\" />
     <Folder Include="Views\AppUser\" />
   </ItemGroup>
 

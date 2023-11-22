@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HamburgerciProject.Application.Services.AppUserService
 {
@@ -62,28 +62,28 @@ namespace HamburgerciProject.Application.Services.AppUserService
         }
 
         
-        public async Task<IdentityResult> Register(RegisterDTO model)
-        {
+        //public async Task<IdentityResult> Register(RegisterDTO model)
+        //{
 
 
-            Random rnd = new Random();
-            int code;
-            code = rnd.Next(100000, 1000000);
-            AppUser user = new AppUser()
-            {
-                UserName = model.UserName,
-                Email = model.Email,
-                CreateDate = model.CreateDate,
-                Password= model.Password,
-                ConfirmCode=model.Code,
-                Status = Domain.Enum.Status.Inactive
-            };
+        //    Random rnd = new Random();
+        //    int code;
+        //    code = rnd.Next(100000, 1000000);
+        //    AppUser user = new AppUser()
+        //    {
+        //        UserName = model.UserName,
+        //        Email = model.Email,
+        //        CreateDate = model.CreateDate,
+        //        Password= model.Password,
+        //        ConfirmCode=model.Code,
+        //        Status = Domain.Enum.Status.Inactive
+        //    };
 
             
-            IdentityResult result = await _UserManager.CreateAsync(user, model.Password);
+        //    //IdentityResult result = await _UserManager.CreateAsync(user, model.Password);
         
-            return result;
-        }
+        //    return View();
+        //}
 
         public async Task UpdateUser(UpdateProfileDTO model)
         {
