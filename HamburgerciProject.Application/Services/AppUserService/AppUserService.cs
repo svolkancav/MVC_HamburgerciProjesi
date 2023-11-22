@@ -3,8 +3,8 @@ using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using MimeKit;
-using Microsoft.AspNetCore.Mvc;
+
+
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;

@@ -23,8 +23,8 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         [ForeignKey(nameof(AppUser))]
 
         public int AppUserId { get; set; }
-        public ICollection<MenuSiparis> MenuSiparisler{ get; set; }
-        public ICollection<EkstraMalzemelerSiparis> EkstraMalzemeSiparisler{ get; set; }
+        public ICollection<MenuSiparis> Menuler{ get; set; }
+        public ICollection<EkstraMalzemelerSiparis> EkstraMalzemeler{ get; set; }
 
 
 
