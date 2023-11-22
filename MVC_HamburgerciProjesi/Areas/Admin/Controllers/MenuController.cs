@@ -3,10 +3,10 @@ using HamburgerciProject.Application.Services.MenuServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HamburgerciProject.Presentation.Areas.User.Controllers
+namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
-    //[Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class MenuController : Controller
     {
         private readonly IMenuService _menuService;
@@ -16,7 +16,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
             _menuService = menuService;
         }
 
-        [AllowAnonymous]
+        
         public async Task<IActionResult> Index()
         {
             List<MenuDTO> menuDTOs = await _menuService.GetMenus();

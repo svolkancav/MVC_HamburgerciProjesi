@@ -38,4 +38,9 @@
     <Folder Include="Views\AppUser\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\web\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\web\fonts\fontawesome-webfont.woff2" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using HamburgerciProject.Domain.Entities.Concrete;
+using HamburgerciProject.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,8 +23,8 @@ namespace HamburgerciProject.Application.Models.DTOs
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-
-        public string ReturnUrl { get; set; }
+        public Status status { get; set; }
+    
        
     }
 }

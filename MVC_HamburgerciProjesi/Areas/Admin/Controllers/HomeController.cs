@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_HamburgerciProjesi.Models;
+using System.Data;
 using System.Diagnostics;
 
-namespace HamburgerciProject.Presentation.Area.Admin.Controllers
+namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
