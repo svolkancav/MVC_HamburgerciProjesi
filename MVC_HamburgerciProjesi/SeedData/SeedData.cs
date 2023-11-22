@@ -187,7 +187,7 @@ namespace HamburgerciProject.Presentation.SeedData
                         Adedi = 1,
                         CreateDate = DateTime.Now,
                         Status = Status.Active,
-                        Menuler = new HashSet<MenuSiparis>()
+                        MenuSiparisler = new HashSet<MenuSiparis>()
                         {
                             new MenuSiparis()
                             {
@@ -202,7 +202,7 @@ namespace HamburgerciProject.Presentation.SeedData
                                 MenuId = 3,
                             },
                         },
-                        EkstraMalzemeler = new HashSet<EkstraMalzemelerSiparis>()
+                        EkstraMalzemeSiparisler = new HashSet<EkstraMalzemelerSiparis>()
                         {
                             new EkstraMalzemelerSiparis()
                             {
