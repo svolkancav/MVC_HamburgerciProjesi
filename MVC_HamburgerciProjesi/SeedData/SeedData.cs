@@ -213,7 +213,7 @@ namespace HamburgerciProject.Presentation.SeedData
                                 EkstraMalzemeId = 2,
                             }
                         },
-                        appUser = new() 
+                        appUser = new()
                         {
                             CreateDate = DateTime.Now,
                             UserName = "volkan",
@@ -229,13 +229,13 @@ namespace HamburgerciProject.Presentation.SeedData
 
 
 
-                //         );
-                if (!context.Users.Any())
-                {
-                    context.Users.Add(new AppUser() { UserName = "volkan", Email = "volkancavusoglu@hotmail.com", Password = "123", UserRole = "admin" });
-                    //}
-                    context.SaveChanges();
-                }
+                    //         );
+                    if (!context.Users.Any())
+                    {
+                        context.Users.Add(new AppUser() { UserName = "volkan", Email = "volkancavusoglu@hotmail.com", Password = "123", UserRole = "admin" });
+                        //}
+                        context.SaveChanges();
+                    }
             }
         }
     }

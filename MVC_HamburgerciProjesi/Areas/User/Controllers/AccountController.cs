@@ -1,23 +1,23 @@
 ﻿using HamburgerciProject.Domain.Entities.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
 using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Application.Services.AppUserService;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using MimeKit;
-using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 using MailKit.Net.Smtp;
 
-namespace HamburgerciProject.Presentation.Area.Users.Controllers
+namespace HamburgerciProject.Presentation.Area.Admin.Controllers
 {
+    [Area("User")]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInmanager;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
         private readonly IAppUserService _iAppUser;
-        private readonly IEmailSender _emailSender;
-        
+
+
         public AccountController(UserManager<AppUser> usermanager, SignInManager<AppUser> signınmanager, IPasswordHasher<AppUser> passwordhasher, IAppUserService iAppUser)
         {
             _userManager = usermanager;
@@ -58,7 +58,7 @@ namespace HamburgerciProject.Presentation.Area.Users.Controllers
                 if (result.Succeeded == true)
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var confirmationLink = Url.Action(nameof(Confirmation), "Account", new { token, email = user.Email}, Request.Scheme);
+                    var confirmationLink = Url.Action(nameof(Confirmation), "Account", new { token, email = user.Email }, Request.Scheme);
                     //var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
                     //await _emailSender.SendEmailAsync(message);
 
@@ -72,7 +72,7 @@ namespace HamburgerciProject.Presentation.Area.Users.Controllers
                     mimeMessage.To.Add(mailboxTo);
 
                     var bodybuilder = new BodyBuilder();
-                    bodybuilder.TextBody = "Kayıt işlemini gerçekleştirmek için linke tıklayınız: " + confirmationLink; 
+                    bodybuilder.TextBody = "Kayıt işlemini gerçekleştirmek için linke tıklayınız: " + confirmationLink;
                     mimeMessage.Body = bodybuilder.ToMessageBody();
 
                     mimeMessage.Subject = "Onay linkiniz";
@@ -103,11 +103,11 @@ namespace HamburgerciProject.Presentation.Area.Users.Controllers
                     foreach (IdentityError error in result.Errors)
                     {
                         ModelState.AddModelError("", error.Description);
-                        
+
                     }
                     return View();
                 }
-                
+
             }
             return View();
             //await _signInmanager.SignInAsync(user, isPersistent: false);
@@ -144,5 +144,5 @@ namespace HamburgerciProject.Presentation.Area.Users.Controllers
 
     }
 
-    
+
 }

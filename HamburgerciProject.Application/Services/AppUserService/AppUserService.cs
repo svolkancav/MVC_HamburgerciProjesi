@@ -1,10 +1,8 @@
 ﻿using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
-using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using MimeKit;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
