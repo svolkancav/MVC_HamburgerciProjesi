@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnectionFeyza")));
+    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 
