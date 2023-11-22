@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HamburgerciProject.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231121130521_first")]
+    [Migration("20231122164901_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
