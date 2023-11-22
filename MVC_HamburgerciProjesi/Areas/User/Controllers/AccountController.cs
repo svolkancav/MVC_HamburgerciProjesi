@@ -159,6 +159,8 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         }
 
         [HttpPost]
+
+        
         public async Task<IActionResult> Login(LoginDTO model)
         {
             if (ModelState.IsValid)
@@ -178,6 +180,8 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
 
         public async Task<IActionResult> Logout()
         {
