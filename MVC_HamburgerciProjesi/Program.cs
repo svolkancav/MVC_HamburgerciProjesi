@@ -30,13 +30,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole<int>>
     ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<IdentityValidator>();
 
 
-//builder.Services.AddMvc(options =>
-//{
-//    var policy= new AuthorizationPolicyBuilder()
-//    .RequireAuthenticatedUser().Build();
-//    options.Filters.Add(new AuthorizeFilter(policy));
-//}
-//).AddXmlSerializerFormatters();
 
 builder.Services.AddTransient<IMenuService, MenuService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
@@ -73,23 +66,57 @@ SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Account}/{action=Login}");
 
 app.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
     pattern: "{UserArea}/{controller=Home}/{action=Index}/{id?}"
     );
-//app.MapAreaControllerRoute(
-//    name: "UserArea",
-//    areaName: "User",
-//    pattern: "{controller=Account}/{action=Register}"
-//    );
+app.MapAreaControllerRoute(
+    name: "UserArea",
+    areaName: "User",
+    pattern: "{UserArea}/{controller=Account}/{action=Register}"
+    );
+
+app.MapAreaControllerRoute(
+    name: "UserArea",
+    areaName: "User",
+    pattern: "{UserArea}/{controller=Account}/{action=Confirmation}/{id?}"
+    );
+app.MapAreaControllerRoute(
+    name: "UserArea",
+    areaName: "User",
+    pattern: "{UserArea}/{controller=Account}/{action=Login}"
+    );
+
+app.MapAreaControllerRoute(
+    name: "UserArea",
+    areaName: "User",
+    pattern: "{UserArea}/{controller=Siparis}/{action=Index}"
+    );
+
+
 
 app.MapAreaControllerRoute(
     name: "AdminArea",
     areaName: "Admin",
     pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
     );
+//app.MapAreaControllerRoute(
+//    name: "AdminArea",
+//    areaName: "Admin",
+//    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
+//    );
+//app.MapAreaControllerRoute(
+//    name: "AdminArea",
+//    areaName: "Admin",
+//    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
+//    );
+//app.MapAreaControllerRoute(
+//    name: "AdminArea",
+//    areaName: "Admin",
+//    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
+//    );
 
 app.Run();

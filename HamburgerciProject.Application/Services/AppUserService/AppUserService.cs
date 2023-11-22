@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace HamburgerciProject.Application.Services.AppUserService
 {
@@ -88,18 +89,25 @@ namespace HamburgerciProject.Application.Services.AppUserService
         public async Task UpdateUser(UpdateProfileDTO model)
         {
             AppUser user = await _appUserRepository.GetDefault(x => x.Id == model.Id);
+            user.Status = model.status;
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.UpdateDate = DateTime.Now;
+            
+
             if (model.Password != null)
             {
                 _UserManager.PasswordHasher.HashPassword(user, model.Password);
                 await _UserManager.UpdateAsync(user);
             }
-            if (model.Email != null)
-            {
-                AppUser isUserEmailExists = await _UserManager.FindByEmailAsync(model.Email);
-                if (isUserEmailExists == null)
-                    await _UserManager.SetEmailAsync(user, model.Email);
+            //if (model.Email != null)
+            //{
+            //    AppUser isUserEmailExists = await _UserManager.FindByEmailAsync(model.Email);
+            //    if (isUserEmailExists == null)
+            //        await _UserManager.SetEmailAsync(user, model.Email);
 
-            }
+            //}
+            
         }
     }
 }

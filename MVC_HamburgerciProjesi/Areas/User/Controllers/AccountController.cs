@@ -12,6 +12,7 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 namespace HamburgerciProject.Presentation.Areas.User.Controllers
 {
     [Area("User")]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -44,14 +45,15 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
-        public async Task<IActionResult> Register(RegisterDTO registerDTO, string returnUrl)
+     
+        public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
 
             if (ModelState.IsValid)
             {
                 AppUser user = new AppUser()
                 {
+                   
                     UserName = registerDTO.UserName,
                     Email = registerDTO.Email,
                     CreateDate = registerDTO.CreateDate,
@@ -65,18 +67,6 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action("Confirmation", "Account", new { id = user.Id, token = token }, Request.Scheme);
-                    _iLogger.Log(LogLevel.Warning, confirmationLink);
-
-                    //if(_signInmanager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    //{
-                    //    return RedirectToAction("Confirmation", "Account");
-                    //}
-
-
-                    //var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
-                    //await _emailSender.SendEmailAsync(message);
-
-
 
                     MimeMessage mimeMessage = new MimeMessage();
                     MailboxAddress mailboxFrom = new MailboxAddress("Admin", "hamburgercinizboost@gmail.com");
@@ -103,8 +93,8 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                     ViewBag.ErrorTitle = "Registration successful";
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
                             "email, by clicking on the confirmation link we have emailed you";
-                    return View("Error");
-                    //return View("Error");
+                    return View();
+                  
                 }
 
                 else
@@ -118,61 +108,85 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                 }
 
             }
-            return View(registerDTO);
-            //await _signInmanager.SignInAsync(user, isPersistent: false);
-
-            //return View(registerDTO);
+            return RedirectToAction("Confirmation");
+          
         }
 
         [HttpGet]
-        public async Task<IActionResult> Confirmation(string userId, string token)
+        public async Task<IActionResult> Confirmation(int id, string token)
         {
+            
 
-
-            if (userId == null || token == null)
+            if (id == null || token == null)
             {
                 return RedirectToAction("index", "home");
             }
+          
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            UpdateProfileDTO update = new UpdateProfileDTO()
+            {
+                Id = user.Id,
+                status = user.Status,
+                Email = user.Email,
+                UserName = user.UserName,
+                Password = user.Password
+
+            };
             if (user == null)
             {
-                ViewBag.ErrorMessage = $"The User ID {userId} is invalid";
+                ViewBag.ErrorMessage = $"The User ID {id} is invalid";
                 return View("NotFound");
             }
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
-                return View();
+               update.status = Domain.Enum.Status.Active;
+               await   _iAppUser.UpdateUser(update);
+                return RedirectToAction("Login");
             }
 
             ViewBag.ErrorTitle = "Email cannot be confirmed";
             return View("Error");
         }
 
-        public IActionResult Login(string returnUrl)
-        {
-            returnUrl = returnUrl is null ? "Index" : returnUrl;
-            return View(new LoginDTO() { ReturnUrl = returnUrl });
+        public IActionResult Login()
+            {
+            //returnUrl = returnUrl is null ? "Index" : returnUrl;
+            //return View(new LoginDTO() { ReturnUrl = returnUrl });
+        return View();
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost]
+
+        
         public async Task<IActionResult> Login(LoginDTO model)
         {
             if (ModelState.IsValid)
             {
                 AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
-                if (appUser != null)
+                if (appUser.Status == Domain.Enum.Status.Active)
                 {
-                    SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
-                    if (result.Succeeded)
-                        return RedirectToAction("Edit");
-                    ModelState.AddModelError("", "Wrong credantion information");
-                }
+                   
+                    
+                        SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
+                        if (result.Succeeded)
+                            return RedirectToAction("Index", "Siparis");
+                    
 
+                }
+               
             }
-            return View("Menu", "Index");
+            return RedirectToAction("Index");
+        }
+
+
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInmanager.SignOutAsync();
+            return RedirectToAction("Login");
         }
 
     }

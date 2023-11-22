@@ -1,5 +1,4 @@
-﻿@using HamburgerciProject.Presentation.Models.VMs;
-@model ConfirmMailViewModel
+﻿
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,13 +6,8 @@
 <link href="c:\users\feyza\source\repos\svolkancav\mvc_hamburgerciprojesi\mvc_hamburgerciprojesi\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" rel="stylesheet" />
 <div class="container">
     <form method="post">
-        <H2>Aktivasyon Kodunun gönderildiği Mail Adresiniz: @TempData["Mail"] </H2>
-
-        <input type="hidden" class="form-control" asp-for="@Model.Email" />
-        <label>Mail Adresinize Gelen Kodu giriniz:</label>
-        <input type="text" class="form-control" asp-for="@Model.ConfirmCode" />
-        <br />
-        <button class="btn-primary">Hesabımı Aktifleştir</button>
+        <H2>Aktivasyon İşleminiz Başarılı </H2>
+  
     </form>
 
 </div>
