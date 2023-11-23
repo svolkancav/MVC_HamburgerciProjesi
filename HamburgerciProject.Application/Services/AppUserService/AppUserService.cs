@@ -101,13 +101,6 @@ namespace HamburgerciProject.Application.Services.AppUserService
                 _UserManager.PasswordHasher.HashPassword(user, model.Password);
                 await _UserManager.UpdateAsync(user);
             }
-            //if (model.Email != null)
-            //{
-            //    AppUser isUserEmailExists = await _UserManager.FindByEmailAsync(model.Email);
-            //    if (isUserEmailExists == null)
-            //        await _UserManager.SetEmailAsync(user, model.Email);
-
-            //}
             
         }
     }

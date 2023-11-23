@@ -159,8 +159,6 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         }
 
         [HttpPost]
-
-        
         public async Task<IActionResult> Login(LoginDTO model)
         {
             if (ModelState.IsValid)
@@ -168,20 +166,16 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                 AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
                 if (appUser.Status == Domain.Enum.Status.Active)
                 {
-                   
-                    
-                        SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
+                    SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
                         if (result.Succeeded)
                             return RedirectToAction("Index", "Siparis");
-                    
 
                 }
-               
+
             }
+
             return RedirectToAction("Index");
         }
-
-
 
         public async Task<IActionResult> Logout()
         {
