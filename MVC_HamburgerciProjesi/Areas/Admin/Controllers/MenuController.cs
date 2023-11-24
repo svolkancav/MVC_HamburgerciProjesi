@@ -2,11 +2,12 @@
 using HamburgerciProject.Application.Services.MenuServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class MenuController : Controller
     {
         private readonly IMenuService _menuService;
@@ -16,20 +17,55 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
             _menuService = menuService;
         }
 
-        
+
+
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             List<MenuDTO> menuDTOs = await _menuService.GetMenus();
             return View(menuDTOs);
         }
 
+
+
+
+
+        [HttpPost]
+        public IActionResult Create(MenuDTO menuDTO)
+        {
+
+            _menuService.Create(menuDTO);
+            
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Edit(MenuDTO menuDTO)
+        {
+            var menu = _menuService.GetById(menuDTO.Id);
+            await _menuService.Update(menuDTO);
+
+            return View("Index");
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
         public async Task<IActionResult> Edit(int id)
         {
-            var UpdateMenu = _menuService.GetById(id);
+            MenuDTO UpdateMenu = await _menuService.GetById(id);
 
             return View(UpdateMenu);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Edit(MenuDTO menuDTO)
@@ -41,6 +77,7 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
         }
 
         
+
 
         public async Task<IActionResult> Delete(int id)
         {

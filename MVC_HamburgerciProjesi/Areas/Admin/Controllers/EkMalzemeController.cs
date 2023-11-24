@@ -7,7 +7,7 @@ using System.Data;
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class EkMalzemeController : Controller
     {
         private readonly IEkstraMalzemeService _ekstraMalzemeService;

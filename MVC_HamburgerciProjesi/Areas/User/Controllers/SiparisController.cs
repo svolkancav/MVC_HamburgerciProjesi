@@ -10,6 +10,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
     [AllowAnonymous]
     public class SiparisController : Controller
     {
+
         private readonly ISiparisService _siparisService;
 
         public SiparisController(ISiparisService siparisService)
@@ -18,6 +19,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         }
 
         public async Task<IActionResult> Index()
+
         {
             return View( await _siparisService.GetSiparisler());
         }

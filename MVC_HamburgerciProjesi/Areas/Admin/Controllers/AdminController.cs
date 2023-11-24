@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
