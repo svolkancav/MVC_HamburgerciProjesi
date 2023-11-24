@@ -21,8 +21,7 @@ namespace HamburgerciProject.Infrastructure.Context
         public DbSet<Siparis> Siparisler { get; set; }
         public DbSet<Menu> Menuler { get; set; }
         public DbSet<AppUser> Users { get; set; }
-        //public DbSet<MenuSiparis> MenuSiparis { get; set; }
-        //public DbSet<EkstraMalzemelerSiparis> EkstraMalzemeSiparis { get; set; }
+
 
 
 

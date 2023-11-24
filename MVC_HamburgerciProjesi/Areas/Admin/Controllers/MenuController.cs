@@ -22,23 +22,25 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
             List<MenuDTO> menuDTOs = await _menuService.GetMenus();
             return View(menuDTOs);
         }
-        [HttpPost]
 
-        public async Task<IActionResult> Edit(MenuDTO menuDTO)
-        {
-            var menu = _menuService.GetById(menuDTO.Id);
-            await _menuService.Update(menuDTO);
-
-            return RedirectToAction("Index");
-        }
         [HttpGet]
-
         public async Task<IActionResult> Edit(int id)
         {
             var UpdateMenu = _menuService.GetById(id);
 
             return View(UpdateMenu);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MenuDTO menuDTO)
+        {
+            var menu = await _menuService.GetById(menuDTO.Id);
+            await _menuService.Update(menu);
+
+            return RedirectToAction("Index");
+        }
+
+        
 
         public async Task<IActionResult> Delete(int id)
         {

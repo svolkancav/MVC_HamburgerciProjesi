@@ -66,7 +66,7 @@ SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "UserArea",
