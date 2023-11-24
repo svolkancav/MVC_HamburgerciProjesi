@@ -16,10 +16,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+//    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
+   builder.Configuration.GetConnectionString("DefaultConnectionFeyza")));
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 
@@ -43,10 +45,12 @@ builder.Services.AddTransient<IMenuRepository, MenuRepository>();
 builder.Services.AddTransient<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
 builder.Services.AddTransient<ISiparisRepository, SiparisRepository>();
 builder.Services.AddTransient<IAppUserRepository, AppUserRepository>();
-builder.Services.AddTransient<IAppUserService, AppUserService >();
+builder.Services.AddTransient<IAppUserService, AppUserService>();
 
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -64,9 +68,9 @@ app.UseRouting();
 app.UseAuthorization();
 SeedData.Seed(app);
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Account}/{action=Login}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Account}/{action=Login}");
 
 app.MapAreaControllerRoute(
     name: "UserArea",
@@ -76,24 +80,29 @@ app.MapAreaControllerRoute(
 app.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
+    pattern: "{controller=Account}/{action=Login}"
+    );
+
+app.MapAreaControllerRoute(
+    name: "UserArea", 
+    areaName: "User",
+    pattern: "{UserArea}/{controller=Account}/{action=Confirmation}/{id?}"
+    );
+
+
+
+
+
+app.MapAreaControllerRoute(
+    name: "UserArea",
+    areaName: "User",
     pattern: "{UserArea}/{controller=Account}/{action=Register}"
     );
 
 app.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
-    pattern: "{UserArea}/{controller=Account}/{action=Confirmation}/{id?}"
-    );
-app.MapAreaControllerRoute(
-    name: "UserArea",
-    areaName: "User",
-    pattern: "{UserArea}/{controller=Account}/{action=Login}"
-    );
-
-app.MapAreaControllerRoute(
-    name: "UserArea",
-    areaName: "User",
-    pattern: "{UserArea}/{controller=Siparis}/{action=Index}"
+    pattern: "{controller=Siparis}/{action=Index}"
     );
 
 
@@ -101,13 +110,13 @@ app.MapAreaControllerRoute(
 app.MapAreaControllerRoute(
     name: "AdminArea",
     areaName: "Admin",
-    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
+    pattern: "{controller=Admin}/{action=Index}"
     );
-//app.MapAreaControllerRoute(
-//    name: "AdminArea",
-//    areaName: "Admin",
-//    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
-//    );
+app.MapAreaControllerRoute(
+    name: "AdminArea",
+    areaName: "Admin",
+    pattern: "{controller=Menu}/{action=Index}"
+    );
 //app.MapAreaControllerRoute(
 //    name: "AdminArea",
 //    areaName: "Admin",

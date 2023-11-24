@@ -1,4 +1,5 @@
 ﻿using HamburgerciProject.Application.Models.DTOs;
+using HamburgerciProject.Application.Models.VMs;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace HamburgerciProject.Application.Services.MenuServices
         Task Delete(int id);
         Task <MenuDTO> GetById(int id);
         Task<List<MenuDTO>> GetMenus();
+
     }
 }

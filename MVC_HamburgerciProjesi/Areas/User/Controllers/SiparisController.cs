@@ -9,6 +9,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
     [AllowAnonymous]
     public class SiparisController : Controller
     {
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

@@ -6,8 +6,8 @@ using System.Diagnostics;
 
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Area("Admin")]
+    //[Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

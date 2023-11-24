@@ -36,16 +36,17 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
             return View();
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         
         {
             return View();
         }
-        AppUser appUser;
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-     
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
 
@@ -113,6 +114,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Confirmation(int id, string token)
         {
             
@@ -160,7 +162,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
 
         [HttpPost]
 
-        
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDTO model)
         {
             if (ModelState.IsValid)
@@ -171,19 +173,21 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                    
                     
                         SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
-                        if (result.Succeeded)
+                    if (result.Succeeded)
+                    {
+                        if (appUser.UserRole == "User")
                             return RedirectToAction("Index", "Siparis");
-                    
-
+                        else return RedirectToAction("Index", "Admin");
+                    }
                 }
-               
             }
-            return RedirectToAction("Index");
+            return View();
         }
 
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
+               
         {
             await _signInmanager.SignOutAsync();
             return RedirectToAction("Login");

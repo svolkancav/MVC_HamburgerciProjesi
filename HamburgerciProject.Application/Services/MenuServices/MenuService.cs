@@ -1,6 +1,9 @@
 ﻿using HamburgerciProject.Application.Models.DTOs;
+using HamburgerciProject.Application.Models.VMs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
+using Microsoft.AspNetCore.Identity;
+using MVC_HamburgerciProjesi.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,31 +87,33 @@ namespace HamburgerciProject.Application.Services.MenuServices
 
         public async Task Update(MenuDTO model)
         {
-            Menu menu = new Menu()
-            {
-                Id = model.Id,
-                MenuAdi = model.MenuAdi,
-                MenuFiyati = model.MenuFiyati,
-                Boyutu = model.Boyutu
-            };
 
-            if (menu != null)
-            {
-                if (model.UploadPath != null)
-                {
-                    // using SixLabors.ImageSharp;
-                    Image image = Image.Load(model.UploadPath.OpenReadStream());
-                    image.Mutate(x => x.Resize(600, 560));
+            Menu user = await _menuRepository.GetDefault(x => x.Id == model.Id);
+            user.Id = model.Id;
+            user.MenuAdi = model.MenuAdi;
+            user.MenuFiyati = model.MenuFiyati;
 
-                    Guid guid = new Guid();
-                    image.Save($"wwwroot/images/{guid}"); //foler'ın altına kaydettim.
+            await _menuRepository.Update(user);
 
-                    menu.ImagePath = $"/images/{guid}.jpg";
-                }
-                else
-                    menu.ImagePath = $"/images/defaultpost.jpg";
-                await _menuRepository.Update(menu);
-            }
+            //    if (menu != null)
+            //    {
+            //        if (model.UploadPath != null)
+            //        {
+            //            // using SixLabors.ImageSharp;
+            //            Image image = Image.Load(model.UploadPath.OpenReadStream());
+            //            image.Mutate(x => x.Resize(600, 560));
+
+            //            Guid guid = new Guid();
+            //            image.Save($"wwwroot/images/{guid}"); //foler'ın altına kaydettim.
+
+            //            menu.ImagePath = $"/images/{guid}.jpg";
+            //        }
+            //        else
+            //            menu.ImagePath = $"/images/defaultpost.jpg";
+            //        await _menuRepository.Update(menu);
+            //    }
         }
+
+
     }
 }
