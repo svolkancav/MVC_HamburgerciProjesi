@@ -30,6 +30,7 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 
 
 
+
         [HttpPost]
         public IActionResult Create(MenuDTO menuDTO)
         {
@@ -57,13 +58,27 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
+
         public async Task<IActionResult> Edit(int id)
         {
             MenuDTO UpdateMenu = await _menuService.GetById(id);
 
             return View(UpdateMenu);
         }
-        [AllowAnonymous]
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MenuDTO menuDTO)
+        {
+            var menu = await _menuService.GetById(menuDTO.Id);
+            await _menuService.Update(menu);
+
+            return RedirectToAction("Index");
+        }
+
+        
+
+
         public async Task<IActionResult> Delete(int id)
         {
             await _menuService.Delete(id);

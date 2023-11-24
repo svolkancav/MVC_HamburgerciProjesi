@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using HamburgerciProject.Application.Services.SiparisServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -9,10 +10,26 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
     [AllowAnonymous]
     public class SiparisController : Controller
     {
-        [AllowAnonymous]
-        public IActionResult Index()
+
+        private readonly ISiparisService _siparisService;
+
+        public SiparisController(ISiparisService siparisService)
         {
-            return View();
+            _siparisService = siparisService;
         }
+
+        public async Task<IActionResult> Index()
+
+        {
+            return View( await _siparisService.GetSiparisler());
+        }
+
+
+
+
+
+
+
+
     }
 }

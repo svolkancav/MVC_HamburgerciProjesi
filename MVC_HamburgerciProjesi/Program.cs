@@ -68,6 +68,7 @@ app.UseRouting();
 app.UseAuthorization();
 SeedData.Seed(app);
 
+
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Account}/{action=Login}");
@@ -89,10 +90,6 @@ app.MapAreaControllerRoute(
     pattern: "{UserArea}/{controller=Account}/{action=Confirmation}/{id?}"
     );
 
-
-
-
-
 app.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
@@ -104,8 +101,6 @@ app.MapAreaControllerRoute(
     areaName: "User",
     pattern: "{controller=Siparis}/{action=Index}"
     );
-
-
 
 app.MapAreaControllerRoute(
     name: "AdminArea",

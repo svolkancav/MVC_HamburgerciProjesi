@@ -103,7 +103,7 @@ namespace HamburgerciProject.Application.Services.SiparisServices
                     },
                     where: x => x.Status != Status.Inactive,
                     orderBy: x => x.OrderBy(x => x.MenuAdi)
-                    )
+                    ),
             };
             return model;
         }

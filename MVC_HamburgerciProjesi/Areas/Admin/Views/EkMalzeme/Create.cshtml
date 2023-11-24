@@ -1,0 +1,47 @@
+﻿@model HamburgerciProject.Application.Models.DTOs.EkstraMalzemeDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h2 class="fs-1 text-white">SIGN UP</h2>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EkstraAdi" class="control-label"></label>
+                <input asp-for="EkstraAdi" class="form-control" />
+                <span asp-validation-for="EkstraAdi" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EkstraFiyat" class="control-label"></label>
+                <input asp-for="EkstraFiyat" class="form-control" />
+                <span asp-validation-for="EkstraFiyat" class="text-danger"></span>
+            </div>
+
+            <div class="text-white" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <button style="color:bisque">
+                    <a style="text-decoration:none; color:black">Kaydet</a>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
