@@ -15,10 +15,11 @@ namespace HamburgerciProject.Application.Models.DTOs
         public int Id { get; set; }
         public string MenuAdi { get; set; }
         public decimal MenuFiyati { get; set; }
-        public Boyut Boyutu { get; set; }
         public string ImagePath { get; set; }
 
         [PictureFileExtension]
         public IFormFile UploadPath { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime UpdateDate { get; set; } = DateTime.Now;
     }
 }

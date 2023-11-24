@@ -1,3 +1,6 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using HamburgerciProject.Application.IoC;
 using HamburgerciProject.Application.Services.AppUserService;
 using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using HamburgerciProject.Application.Services.MenuServices;
@@ -12,18 +15,31 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Autofac.Core;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-//    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-   builder.Configuration.GetConnectionString("DefaultConnectionFeyza")));
+    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+//   builder.Configuration.GetConnectionString("DefaultConnectionFeyza")));
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
+
+
+//Cookie ler için eklendi. Deneme
+//builder.Services
+//    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+//      .RequireAuthenticatedUser()
+//      .Build();
+//});
 
 
 builder.Services.AddIdentity<AppUser, IdentityRole<int>>
@@ -33,19 +49,11 @@ builder.Services.AddIdentity<AppUser, IdentityRole<int>>
 
 
 
-builder.Services.AddTransient<IMenuService, MenuService>();
-builder.Services.AddTransient<IAppUserService, AppUserService>();
-builder.Services.AddTransient<IEkstraMalzemeService, EkstraMalzemeService>();
-builder.Services.AddTransient<ISiparisService, SiparisService>();
-
-
-
-builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-builder.Services.AddTransient<IMenuRepository, MenuRepository>();
-builder.Services.AddTransient<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
-builder.Services.AddTransient<ISiparisRepository, SiparisRepository>();
-builder.Services.AddTransient<IAppUserRepository, AppUserRepository>();
-builder.Services.AddTransient<IAppUserService, AppUserService>();
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterModule(new DependencyResolver());
+});
 
 
 var app = builder.Build();
@@ -73,54 +81,42 @@ SeedData.Seed(app);
 //    name: "default",
 //    pattern: "{controller=Account}/{action=Login}");
 
-app.MapAreaControllerRoute(
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapAreaControllerRoute(
+       name: "UserArea",
+       areaName: "User",
+       pattern: "{controller=Account}/{action=Login}"
+       );
+    endpoints.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
-    pattern: "{UserArea}/{controller=Home}/{action=Index}/{id?}"
+    pattern: "User/{controller=Home}/{action=Index}/{id?}"
     );
-app.MapAreaControllerRoute(
+    endpoints.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
-    pattern: "{controller=Account}/{action=Login}"
+    pattern: "User/{controller=Account}/{action=Register}"
     );
-
-app.MapAreaControllerRoute(
-    name: "UserArea", 
-    areaName: "User",
-    pattern: "{UserArea}/{controller=Account}/{action=Confirmation}/{id?}"
-    );
-
-app.MapAreaControllerRoute(
+    endpoints.MapAreaControllerRoute(
     name: "UserArea",
     areaName: "User",
-    pattern: "{UserArea}/{controller=Account}/{action=Register}"
+    pattern: "User/{controller=Siparis}/{action=Index}"
     );
-
-app.MapAreaControllerRoute(
-    name: "UserArea",
-    areaName: "User",
-    pattern: "{controller=Siparis}/{action=Index}"
-    );
-
-app.MapAreaControllerRoute(
+    endpoints.MapAreaControllerRoute(
     name: "AdminArea",
     areaName: "Admin",
-    pattern: "{controller=Admin}/{action=Index}"
+    pattern: "{controller=UserManager}/{action=Index}"
     );
-app.MapAreaControllerRoute(
+    endpoints.MapAreaControllerRoute(
     name: "AdminArea",
     areaName: "Admin",
-    pattern: "{controller=Menu}/{action=Index}"
+    pattern: "Admin/{controller=Menu}/{action=Index}"
     );
-//app.MapAreaControllerRoute(
-//    name: "AdminArea",
-//    areaName: "Admin",
-//    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
-//    );
-//app.MapAreaControllerRoute(
-//    name: "AdminArea",
-//    areaName: "Admin",
-//    pattern: "{AdminArea}/{controller=Home}/{action=Index}/{id?}"
-//    );
+
+
+});
+
+
 
 app.Run();

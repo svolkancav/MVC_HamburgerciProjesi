@@ -7,7 +7,7 @@ using System.Data;
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     public class EkMalzemeController : Controller
     {
         private readonly IEkstraMalzemeService _ekstraMalzemeService;
@@ -26,23 +26,23 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit (int id)
         {
-            var updateMalzeme = _ekstraMalzemeService.GetById(id);
+            var updateMalzeme = await _ekstraMalzemeService.GetById(id);
             return View(updateMalzeme);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EkstraMalzemeDTO model)
         {
-            var ekstraMalzeme = await _ekstraMalzemeService.GetById(model.Id);
-            await _ekstraMalzemeService.Update(ekstraMalzeme);
             
-            return RedirectToAction("Index");
+            await _ekstraMalzemeService.Update(model);
+            
+            return RedirectToAction("Index","EkMalzeme");
         }
 
         public async Task<IActionResult> Delete (int id)
         {
             await _ekstraMalzemeService.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "EkMalzeme");
         }
 
         [HttpGet]
@@ -56,7 +56,7 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
         public async Task<IActionResult> Create(EkstraMalzemeDTO model)
         {
             await _ekstraMalzemeService.Create(model);
-            return RedirectToAction("Index");   
+            return RedirectToAction("Index", "EkMalzeme");   
         }
 
     }

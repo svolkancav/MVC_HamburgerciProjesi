@@ -1,24 +1,24 @@
 ﻿@using HamburgerciProject.Application.Models.DTOs;
-@model IEnumerable<MenuDTO>
+@model IEnumerable<EkstraMalzemeDTO>
 
 @{
     ViewData["Title"] = "Index";
- 
+
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Yeni Menü Oluştur</a>
+    <a asp-action="Create">Yeni Ekstra Malzeme Oluştur</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MenuAdi)
+                @Html.DisplayNameFor(model => model.EkstraAdi)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MenuFiyati)
+                @Html.DisplayNameFor(model => model.EkstraFiyat)
             </th>
         </tr>
     </thead>
@@ -27,10 +27,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MenuAdi)
+                    @Html.DisplayFor(modelItem => item.EkstraAdi)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MenuFiyati)
+                    @Html.DisplayFor(modelItem => item.EkstraFiyat)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

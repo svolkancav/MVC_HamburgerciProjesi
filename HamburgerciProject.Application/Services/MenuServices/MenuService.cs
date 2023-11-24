@@ -1,34 +1,28 @@
 ﻿using HamburgerciProject.Application.Models.DTOs;
-using HamburgerciProject.Application.Models.VMs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
-using Microsoft.AspNetCore.Identity;
-using MVC_HamburgerciProjesi.Models.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 
 namespace HamburgerciProject.Application.Services.MenuServices
 {
     public class MenuService : IMenuService
     {
         private readonly IMenuRepository _menuRepository;
+        private readonly IMapper _mapper;
 
-        public MenuService(IMenuRepository menuRepository)
+        public MenuService(IMenuRepository menuRepository, IMapper mapper)
         {
             _menuRepository = menuRepository;
+            _mapper = mapper;
         }
 
         public async Task Create(MenuDTO model)
         {
             Menu menu = new Menu()
             {
-                Id = model.Id,
                 MenuAdi = model.MenuAdi,
                 MenuFiyati = model.MenuFiyati,
-                Boyutu = model.Boyutu,
+                CreateDate = model.CreateDate,
 
             };
             if (model.UploadPath != null)
@@ -49,7 +43,7 @@ namespace HamburgerciProject.Application.Services.MenuServices
 
         public async Task Delete(int id)
         {
-            Menu menu = await _menuRepository.GetDefault(x => x.Equals(id));
+            Menu menu = await _menuRepository.GetDefault(x => x.Id == id);
             menu.DeleteDate = DateTime.Now;
             menu.Status = Domain.Enum.Status.Inactive;
             await _menuRepository.Delete(menu);
@@ -63,7 +57,6 @@ namespace HamburgerciProject.Application.Services.MenuServices
                 Id = menu.Id,
                 MenuAdi = menu.MenuAdi,
                 MenuFiyati = menu.MenuFiyati,
-                Boyutu = menu.Boyutu,
                 ImagePath = menu.ImagePath
             };
             return menuDTO;
@@ -77,7 +70,6 @@ namespace HamburgerciProject.Application.Services.MenuServices
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
                     MenuFiyati = x.MenuFiyati,
-                    Boyutu = x.Boyutu,
                 },
                 where: x => x.Status != Domain.Enum.Status.Inactive,
                 orderBy: x => x.OrderBy(x => x.Id)
@@ -87,13 +79,14 @@ namespace HamburgerciProject.Application.Services.MenuServices
 
         public async Task Update(MenuDTO model)
         {
+            var menu = _mapper.Map<Menu>(model);
+            //Menu menu = await _menuRepository.GetDefault(x => x.Id == model.Id);
 
-            Menu user = await _menuRepository.GetDefault(x => x.Id == model.Id);
-            user.Id = model.Id;
-            user.MenuAdi = model.MenuAdi;
-            user.MenuFiyati = model.MenuFiyati;
-
-            await _menuRepository.Update(user);
+            if (menu != null)
+            {
+                await _menuRepository.Update(menu);
+            }
+            
 
             //    if (menu != null)
             //    {

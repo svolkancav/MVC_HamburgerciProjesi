@@ -1,4 +1,5 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿using AutoMapper;
+using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using System;
@@ -12,25 +13,22 @@ namespace HamburgerciProject.Application.Services.EkstraMalzemeServices
     public class EkstraMalzemeService : IEkstraMalzemeService
     {
         private readonly IEkstraMalzemeRepository _repository;
+        private readonly IMapper _mapper;
 
-        public EkstraMalzemeService(IEkstraMalzemeRepository repository)
+        public EkstraMalzemeService(IEkstraMalzemeRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         public async Task Create(EkstraMalzemeDTO model)
         {
-            EkstraMalzeme ekstraMalzeme = new EkstraMalzeme()
-            {
-                Id = model.Id,
-                EkstraAdi = model.EkstraAdi,
-                EkstraFiyat = model.EkstraFiyat
-            };
+            EkstraMalzeme ekstraMalzeme = _mapper.Map<EkstraMalzeme>(model);
             await _repository.Create(ekstraMalzeme);
         }
 
         public async Task Delete(int id)
         {
-            EkstraMalzeme ekstraMalzeme = await _repository.GetDefault(x => x.Equals(id));
+            EkstraMalzeme ekstraMalzeme = await _repository.GetDefault(x => x.Id == id);
             ekstraMalzeme.DeleteDate = DateTime.Now;
             ekstraMalzeme.Status = Domain.Enum.Status.Inactive;
             await _repository.Delete(ekstraMalzeme);
@@ -65,7 +63,7 @@ namespace HamburgerciProject.Application.Services.EkstraMalzemeServices
 
         public async Task Update(EkstraMalzemeDTO model)
         {
-            EkstraMalzeme ekstraMalzeme = await _repository.GetDefault(x => x.Id == model.Id);
+            var ekstraMalzeme = _mapper.Map<EkstraMalzeme>(model);
             if (ekstraMalzeme != null)
             {
                 await _repository.Update(ekstraMalzeme);

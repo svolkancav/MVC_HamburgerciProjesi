@@ -103,5 +103,21 @@ namespace HamburgerciProject.Application.Services.AppUserService
             }
             
         }
+
+        public async Task<List<RegisterDTO>> GetUsers()
+        {
+            var users = await _appUserRepository.GetFilteredList(
+                select: x => new RegisterDTO
+                {
+                    Id = x.Id,
+                    UserName = x.UserName,
+                    Email = x.Email,
+                    UserRole = x.UserRole
+                },
+                where: x => x.Status != Domain.Enum.Status.Inactive,
+                orderBy: x => x.OrderBy(x => x.Id)
+                );
+            return users;
+        }
     }
 }

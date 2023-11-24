@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     public class MenuController : Controller
     {
         private readonly IMenuService _menuService;
@@ -17,10 +17,6 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
             _menuService = menuService;
         }
 
-
-
-
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             List<MenuDTO> menuDTOs = await _menuService.GetMenus();
@@ -28,37 +24,25 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
         }
 
 
-
-
-
         [HttpPost]
-        public IActionResult Create(MenuDTO menuDTO)
+
+        public async Task<IActionResult> Create(MenuDTO menuDTO)
         {
 
-            _menuService.Create(menuDTO);
+            await _menuService.Create(menuDTO);
             
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Menu");
         }
 
         [HttpGet]
+
         public IActionResult Create()
         {
             return View();
         }
 
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Edit(MenuDTO menuDTO)
-        {
-            var menu = _menuService.GetById(menuDTO.Id);
-            await _menuService.Update(menuDTO);
-
-            return View("Index");
-        }
         [HttpGet]
-        [AllowAnonymous]
-
         public async Task<IActionResult> Edit(int id)
         {
             MenuDTO UpdateMenu = await _menuService.GetById(id);
@@ -68,21 +52,17 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MenuDTO menuDTO)
+        public async Task<IActionResult> Edit(MenuDTO model)
         {
-            var menu = await _menuService.GetById(menuDTO.Id);
-            await _menuService.Update(menu);
+            
+            await _menuService.Update(model);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Menu");
         }
-
-        
-
-
         public async Task<IActionResult> Delete(int id)
         {
             await _menuService.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Menu");
 
         }
 
