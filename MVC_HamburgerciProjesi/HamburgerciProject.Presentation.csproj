@@ -34,4 +34,11 @@
     <ProjectReference Include="..\HamburgerciProject.Infrastructure\HamburgerciProject.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Test\Controllers\" />
+    <Folder Include="Areas\Test\Data\" />
+    <Folder Include="Areas\Test\Models\" />
+    <Folder Include="Areas\Test\Views\" />
+  </ItemGroup>
+
 </Project>

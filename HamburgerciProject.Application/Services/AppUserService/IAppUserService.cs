@@ -16,6 +16,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
         Task<UpdateProfileDTO> GetByUserName(string userName);
         Task UpdateUser(UpdateProfileDTO model);
         Task Logout();
+        Task<List<RegisterDTO>> GetUsers();
        
     }
 }

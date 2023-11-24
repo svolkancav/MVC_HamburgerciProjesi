@@ -26,7 +26,7 @@ namespace HamburgerciProject.Application.Models.DTOs
         public string Password { get; set; }
         public string ConfirmedPassword { get; set; }
         public int? Code { get; set; }
-        public string UserRole => "User";
+        public string UserRole { get; set; } = "User";
         public string Email { get; set; }
         public DateTime CreateDate => DateTime.Now;
         public Status status => Status.Active;

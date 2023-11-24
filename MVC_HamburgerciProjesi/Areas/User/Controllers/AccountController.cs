@@ -20,7 +20,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         private readonly IPasswordHasher<AppUser> _passwordHasher;
         private readonly IAppUserService _iAppUser;
         private readonly ILogger<AccountController> _iLogger;
-       
+
 
         public AccountController(UserManager<AppUser> usermanager, SignInManager<AppUser> signınmanager, IPasswordHasher<AppUser> passwordhasher, IAppUserService iAppUser, ILogger<AccountController> iLogger)
         {
@@ -38,11 +38,11 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
-        
+
         {
             return View();
         }
-       
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -54,7 +54,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
             {
                 AppUser user = new AppUser()
                 {
-                   
+
                     UserName = registerDTO.UserName,
                     Email = registerDTO.Email,
                     CreateDate = registerDTO.CreateDate,
@@ -95,7 +95,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
                             "email, by clicking on the confirmation link we have emailed you";
                     return View();
-                  
+
                 }
 
                 else
@@ -110,20 +110,20 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
 
             }
             return RedirectToAction("Confirmation");
-          
+
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Confirmation(int id, string token)
         {
-            
+
 
             if (id == null || token == null)
             {
                 return RedirectToAction("index", "home");
             }
-          
+
 
             var user = await _userManager.FindByIdAsync(id.ToString());
             UpdateProfileDTO update = new UpdateProfileDTO()
@@ -144,26 +144,25 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
-               update.status = Domain.Enum.Status.Active;
-               await   _iAppUser.UpdateUser(update);
+                update.status = Domain.Enum.Status.Active;
+                await _iAppUser.UpdateUser(update);
                 return RedirectToAction("Login");
             }
 
             ViewBag.ErrorTitle = "Email cannot be confirmed";
             return View("Error");
         }
-
+        [HttpGet]
         public IActionResult Login()
-            {
+        {
             //returnUrl = returnUrl is null ? "Index" : returnUrl;
             //return View(new LoginDTO() { ReturnUrl = returnUrl });
-        return View();
+            return View();
         }
 
+
         [HttpPost]
-
         [AllowAnonymous]
-
         public async Task<IActionResult> Login(LoginDTO model)
         {
             if (ModelState.IsValid)
@@ -171,15 +170,15 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                 AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
                 if (appUser.Status == Domain.Enum.Status.Active)
                 {
-
-                   
-                    
-                        SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
+                    SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
                     if (result.Succeeded)
                     {
+                        //HttpContext.Response.Cookies.Append("UserName", appUser.UserName);
+                        //HttpContext.Response.Cookies.Append("UserRole", appUser.UserRole);
+                        //HttpContext.Response.Cookies.Append("Id", appUser.Id.ToString());
                         if (appUser.UserRole == "User")
                             return RedirectToAction("Index", "Siparis");
-                        else return RedirectToAction("Index", "Admin");
+                        else return RedirectToAction("Index", "UserManager");
                     }
                 }
             }
@@ -190,7 +189,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         [AllowAnonymous]
 
         public async Task<IActionResult> Logout()
-               
+
         {
             await _signInmanager.SignOutAsync();
             return RedirectToAction("Login");
