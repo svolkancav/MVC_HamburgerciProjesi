@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
+using HamburgerciProject.Infrastructure.Repositories;
 
 namespace HamburgerciProject.Application.Services.AppUserService
 {
@@ -23,29 +24,30 @@ namespace HamburgerciProject.Application.Services.AppUserService
             _UserManager = userManager;
         }
 
-        public async Task<RegisterDTO> GetById(int id)
+        public async Task<UpdateProfileDTO> GetById(int id)
         {
             AppUser appuser = await _appUserRepository.GetDefault(x => x.Id == id);
-            RegisterDTO register = new RegisterDTO()
+            UpdateProfileDTO model = new UpdateProfileDTO()
             {
                 Id = appuser.Id,
-                Code = appuser.ConfirmCode,
-                Email = appuser.Email
+                UserName = appuser.UserName,
+                status = appuser.Status,
+                Email = appuser.Email,
+                UserRole=appuser.UserRole
             };
-            return register;
+            return model;
         }
 
         public async Task<UpdateProfileDTO> GetByUserName(string userName)
         {
-            
+
             UpdateProfileDTO result = await _appUserRepository.GetFilteredFirstOrDefault(
                 select: x => new UpdateProfileDTO
                 {
                     UserName = x.UserName,
                     Id = x.Id,
-                    Password = x.Password,
                     Email = x.Email,
-                    
+
                 },
                 where: x => x.UserName == userName
                 );
@@ -63,7 +65,7 @@ namespace HamburgerciProject.Application.Services.AppUserService
             await _signInManager.SignOutAsync();
         }
 
-        
+
         //public async Task<IdentityResult> Register(RegisterDTO model)
         //{
 
@@ -81,9 +83,9 @@ namespace HamburgerciProject.Application.Services.AppUserService
         //        Status = Domain.Enum.Status.Inactive
         //    };
 
-            
+
         //    //IdentityResult result = await _UserManager.CreateAsync(user, model.Password);
-        
+
         //    return View();
         //}
 
@@ -94,14 +96,11 @@ namespace HamburgerciProject.Application.Services.AppUserService
             user.UserName = model.UserName;
             user.Email = model.Email;
             user.UpdateDate = DateTime.Now;
-            
 
-            if (model.Password != null)
-            {
-                _UserManager.PasswordHasher.HashPassword(user, model.Password);
-                await _UserManager.UpdateAsync(user);
-            }
-            
+            await _appUserRepository.Update(user);
+
+         
+
         }
 
         public async Task<List<RegisterDTO>> GetUsers()
@@ -119,5 +118,16 @@ namespace HamburgerciProject.Application.Services.AppUserService
                 );
             return users;
         }
+
+        public async Task Delete(int id)
+        {
+            AppUser appUser = await _appUserRepository.GetDefault(x => x.Id == id);
+            appUser.DeleteDate = DateTime.Now;
+            appUser.Status = Domain.Enum.Status.Inactive;
+            await _appUserRepository.Delete(appUser);
+        }
+
+
     }
 }
+
