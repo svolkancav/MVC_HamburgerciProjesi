@@ -11,5 +11,6 @@ namespace HamburgerciProject.Application.Models.VMs
         public int Id { get; set; }
         public string EkstraAdi { get; set; }
         public decimal EkstraFiyat { get; set; }
+        public int EkstraMalzemeAdedi { get; set; }
     }
 }

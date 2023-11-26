@@ -21,5 +21,6 @@ namespace HamburgerciProject.Application.Models.DTOs
         public IFormFile UploadPath { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime UpdateDate { get; set; } = DateTime.Now;
+        public Boyut Boyut { get; set; }
     }
 }

@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     [AllowAnonymous]
+    [Area("Admin")]
     public class UserManagerController : Controller
     {
         private readonly IAppUserService _appUserService;
@@ -18,7 +18,6 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
             _appUserService = appUserService;
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             List<RegisterDTO> users = await _appUserService.GetUsers();
@@ -34,7 +33,6 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 
        
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> Edit(int id)
         {
             UpdateProfileDTO model = await _appUserService.GetById(id);
@@ -44,7 +42,6 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Edit(UpdateProfileDTO model)
         {
 

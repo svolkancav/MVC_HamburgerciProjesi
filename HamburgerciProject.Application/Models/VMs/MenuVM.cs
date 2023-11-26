@@ -15,5 +15,6 @@ namespace HamburgerciProject.Application.Models.VMs
         public decimal MenuFiyati { get; set; }
         public Boyut Boyutu { get; set; }
         public string ImagePath { get; set; }
+        public int MenuAdedi { get; set; }
     }
 }

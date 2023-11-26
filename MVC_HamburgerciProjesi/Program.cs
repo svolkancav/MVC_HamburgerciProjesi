@@ -23,12 +23,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-//    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-   builder.Configuration.GetConnectionString("defaultconnectionfeyza")));
+    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+//   builder.Configuration.GetConnectionString("defaultconnectionfeyza")));
 
-builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
+
+//builder.Services.AddSession(options =>
+//{
+//	options.Cookie.Name = ".MVC_HamburgerciProjesi.Session";
+//	options.IdleTimeout = TimeSpan.FromMinutes(5);
+//	options.Cookie.HttpOnly = true;
+//	options.Cookie.IsEssential = true;
+//});
+
+
 
 
 //Cookie ler için eklendi. Deneme
@@ -68,6 +77,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -77,43 +87,42 @@ app.UseAuthorization();
 SeedData.Seed(app);
 
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Account}/{action=Login}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapAreaControllerRoute(
-       name: "UserArea",
-       areaName: "User",
-       pattern: "{controller=Account}/{action=Login}"
-       );
-    endpoints.MapAreaControllerRoute(
-    name: "UserArea",
-    areaName: "User",
-    pattern: "User/{controller=Home}/{action=Index}/{id?}"
-    );
-    endpoints.MapAreaControllerRoute(
-    name: "UserArea",
-    areaName: "User",
-    pattern: "User/{controller=Account}/{action=Register}"
-    );
-    endpoints.MapAreaControllerRoute(
-    name: "UserArea",
-    areaName: "User",
-    pattern: "User/{controller=Siparis}/{action=Index}"
-    );
-    endpoints.MapAreaControllerRoute(
-    name: "AdminArea",
-    areaName: "Admin",
-    pattern: "{controller=UserManager}/{action=Index}"
-    );
-    endpoints.MapAreaControllerRoute(
-    name: "AdminArea",
-    areaName: "Admin",
-    pattern: "Admin/{controller=Menu}/{action=Index}"
-    );
-
+endpoints.MapAreaControllerRoute(
+   name: "UserArea",
+   areaName: "User",
+   pattern: "{controller=Account}/{action=Login}"
+   );
+endpoints.MapAreaControllerRoute(
+name: "UserArea",
+areaName: "User",
+pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+endpoints.MapAreaControllerRoute(
+name: "UserArea",
+areaName: "User",
+pattern: "{controller=Account}/{action=Register}"
+);
+endpoints.MapAreaControllerRoute(
+name: "UserArea",
+areaName: "User",
+pattern: "{controller=Siparis}/{action=Index}"
+);
+endpoints.MapAreaControllerRoute(
+name: "AdminArea",
+areaName: "Admin",
+pattern: "{controller=UserManager}/{action=Index}"
+);
+endpoints.MapAreaControllerRoute(
+name: "AdminArea",
+areaName: "Admin",
+pattern: "{controller=Menu}/{action=Index}"
+);
 
 });
 
