@@ -23,10 +23,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
 //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-//   builder.Configuration.GetConnectionString("DefaultConnectionFeyza")));
+//    builder.Configuration.GetConnectionString("DefaultConnectionVolkan")));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+   builder.Configuration.GetConnectionString("defaultconnectionfeyza")));
 
 builder.Services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromSeconds(90));
 

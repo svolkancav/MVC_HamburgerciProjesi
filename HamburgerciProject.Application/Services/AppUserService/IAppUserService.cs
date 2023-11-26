@@ -12,11 +12,15 @@ namespace HamburgerciProject.Application.Services.AppUserService
     {
         //Task<IdentityResult> Register(RegisterDTO model);
         Task<SignInResult> Login(LoginDTO model);
-        Task<RegisterDTO> GetById(int id);
+        Task<UpdateProfileDTO> GetById(int id);
         Task<UpdateProfileDTO> GetByUserName(string userName);
         Task UpdateUser(UpdateProfileDTO model);
         Task Logout();
         Task<List<RegisterDTO>> GetUsers();
-       
+
+        Task Delete(int id);
+
+
+
     }
 }

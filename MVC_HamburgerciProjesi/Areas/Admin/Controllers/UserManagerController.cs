@@ -25,10 +25,47 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
             return View(users);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //Düzennleme user get yeni ekrana gitsin-post listeleme
-        //Delete --> listeleme 
-        //İnsert --> get yeni ekran/ post-->listeleme
 
-     }
+       
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Edit(int id)
+        {
+            UpdateProfileDTO model = await _appUserService.GetById(id);
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Edit(UpdateProfileDTO model)
+        {
+
+            await _appUserService.UpdateUser(model);
+
+            return RedirectToAction("Index", "UserManager");
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _appUserService.Delete(id);
+            return RedirectToAction("Index", "UserManager");
+
+        }
+
+    }
 }
+
+
+
+//Düzennleme user get yeni ekrana gitsin-post listeleme
+//Delete --> listeleme 
+//İnsert --> get yeni ekran/ post-->listeleme
+
+

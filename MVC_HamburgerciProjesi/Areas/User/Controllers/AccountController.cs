@@ -131,8 +131,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                 Id = user.Id,
                 status = user.Status,
                 Email = user.Email,
-                UserName = user.UserName,
-                Password = user.Password
+                UserName = user.UserName
 
             };
             if (user == null)
