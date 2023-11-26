@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     [AllowAnonymous]
+    [Area("Admin")]
     public class MenuController : Controller
     {
         private readonly IMenuService _menuService;
@@ -19,7 +19,8 @@ namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<MenuDTO> menuDTOs = await _menuService.GetMenus();
+			const string personelRolu = "UserRolu";
+			List<MenuDTO> menuDTOs = await _menuService.GetMenus();
             return View(menuDTOs);
         }
 

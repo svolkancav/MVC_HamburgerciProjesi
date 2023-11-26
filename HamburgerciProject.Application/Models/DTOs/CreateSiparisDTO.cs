@@ -12,14 +12,18 @@ namespace HamburgerciProject.Application.Models.DTOs
 {
     public class CreateSiparisDTO
     {
-        [PictureFileExtension]
-        public IFormFile UploadPath { get; set; }
-        public DateTime CreateDate => DateTime.Now;
-        public Status Status => Status.Active;
-        public decimal ToplamTutar { get; set; }
-        public int Adedi { get; set; }
-        public string ImagePath { get; set; }
-        public List<EkstraMalzemeVM> EkstraMalzemeler { get; set; }
-        public List<MenuVM> Menuler { get; set; }
+        public int Id { get; set; }
+        public List<string> İçerik { get; set; }
+        public decimal? ToplamTutar { get; set; }
+        public List<MenuVM>? Menuler { get; set; }
+        public decimal? MenuFiyatlarToplami { get; set; }
+        public List<EkstraMalzemeVM>? EkMalzemeler { get; set; }
+        public decimal? EkstraMalzemeToplamTutar { get; set; }
+        public int? MenuID { get; set; }
+        public int? EkMalzemeID { get; set; }
+        public Status Status { get; set; } = Status.Inactive;
+
+        //public int AppUserID { get; set; }
+        //public UpdateProfileDTO AppUser { get; set; }
     }
 }

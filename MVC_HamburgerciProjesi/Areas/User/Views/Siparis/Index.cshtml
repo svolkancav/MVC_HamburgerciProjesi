@@ -1,1 +1,54 @@
-﻿
+﻿@using HamburgerciProject.Application.Models.DTOs;
+@model IEnumerable<CreateSiparisDTO>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Siparişler</h1>
+
+
+
+
+<p>
+    <a asp-action="Create">Yeni Sipariş Oluştur</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.İçerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToplamTutar)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.İçerik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToplamTutar)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

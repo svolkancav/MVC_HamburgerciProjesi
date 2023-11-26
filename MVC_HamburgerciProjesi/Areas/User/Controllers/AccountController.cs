@@ -8,6 +8,7 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using Microsoft.AspNetCore.Http;
 
 namespace HamburgerciProject.Presentation.Areas.User.Controllers
 {
@@ -164,6 +165,7 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDTO model)
         {
+            
             if (ModelState.IsValid)
             {
                 AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
@@ -175,9 +177,18 @@ namespace HamburgerciProject.Presentation.Areas.User.Controllers
                         //HttpContext.Response.Cookies.Append("UserName", appUser.UserName);
                         //HttpContext.Response.Cookies.Append("UserRole", appUser.UserRole);
                         //HttpContext.Response.Cookies.Append("Id", appUser.Id.ToString());
+
                         if (appUser.UserRole == "User")
+                        {
                             return RedirectToAction("Index", "Siparis");
-                        else return RedirectToAction("Index", "UserManager");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "UserManager");
+                        }
+                        
+                        
+
                     }
                 }
             }

@@ -6,8 +6,8 @@ using System.Data;
 
 namespace HamburgerciProject.Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     [AllowAnonymous]
+    [Area("Admin")]
     public class EkMalzemeController : Controller
     {
         private readonly IEkstraMalzemeService _ekstraMalzemeService;
