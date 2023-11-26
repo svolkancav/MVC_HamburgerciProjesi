@@ -25,10 +25,10 @@ namespace HamburgerciProject.Application.Models.DTOs
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string ConfirmedPassword { get; set; }
-        public int? Code { get; set; }
+       
         public string UserRole { get; set; } = "User";
         public string Email { get; set; }
-        public DateTime CreateDate => DateTime.Now;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         public Status status => Status.Active;
     }
 }

@@ -32,6 +32,7 @@ namespace HamburgerciProject.Application.Services.MenuServices
                 image.Mutate(x => x.Resize(600, 560));
 
                 Guid guid = new Guid();
+
                 image.Save($"wwwroot/images/{guid}"); //foler'ın altına kaydettim.
 
                 menu.ImagePath = $"/images/{guid}.jpg";
