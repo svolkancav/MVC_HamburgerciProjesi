@@ -19,6 +19,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
 
   </ItemGroup>
 

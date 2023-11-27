@@ -1,5 +1,7 @@
 ﻿@using HamburgerciProject.Application.Models.DTOs;
-@model IEnumerable<CreateSiparisDTO>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@model IPagedList<CreateSiparisDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,17 +16,29 @@
 <p>
     <a asp-action="Create">Yeni Sipariş Oluştur</a>
 </p>
+@using (Html.BeginForm())
+{
+    <p>
+        Sipariş ara: @Html.TextBox("deger")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<p>
+    <button type="reset">
+        <a href="Index" style="color:black; text-decoration:none">Yenile</a>
+    </button>
+</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.İçerik)
+                İçerik
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ToplamTutar)
+                Toplam Tutar
             </th>
 
         </tr>
@@ -34,13 +48,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @item.Id
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.İçerik)
+                    @item.İçerik
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ToplamTutar)
+                    @item.ToplamTutar
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -51,4 +65,7 @@
         }
     </tbody>
 </table>
+<tr>
+    @Html.PagedListPager((IPagedList)Model, p=>Url.Action("Index",new{p}))
+</tr>
 

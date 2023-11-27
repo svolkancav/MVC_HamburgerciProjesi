@@ -3,6 +3,7 @@ using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using X.PagedList;
 
 namespace HamburgerciProject.Presentation.Controllers
 {
@@ -15,10 +16,23 @@ namespace HamburgerciProject.Presentation.Controllers
             _ekstraMalzemeService = ekstraMalzemeService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string deger, int p = 1)
         {
-            List<EkstraMalzemeDTO> ekstraMalzemeDTOs = await _ekstraMalzemeService.GetEkstraMalzemeler();
-            return View(ekstraMalzemeDTOs);
+
+
+            if (!string.IsNullOrEmpty(deger))
+            {
+                List<EkstraMalzemeDTO> ekstraMalzeme = await _ekstraMalzemeService.GetEkstraMalzemeler();
+                List<EkstraMalzemeDTO> seciliekstraMalzeme = ekstraMalzeme.Where(x => x.EkstraAdi.ToLower().Contains(deger.ToLower())).ToList();
+
+                return View(seciliekstraMalzeme.ToPagedList(p,3));
+            }
+            else
+            {
+                List<EkstraMalzemeDTO> ekstraMalzemeDTOs = await _ekstraMalzemeService.GetEkstraMalzemeler();
+                return View(ekstraMalzemeDTOs.ToPagedList(p,3));
+
+            }
         }
 
         [HttpGet]
