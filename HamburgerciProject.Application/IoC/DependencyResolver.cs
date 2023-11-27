@@ -1,12 +1,14 @@
 ﻿using Autofac;
 using AutoMapper;
 using HamburgerciProject.Application.AutoMapper;
+using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Application.Services.AppUserService;
 using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using HamburgerciProject.Application.Services.MenuServices;
 using HamburgerciProject.Application.Services.SiparisServices;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Repositories;
+using X.PagedList;
 
 namespace HamburgerciProject.Application.IoC
 {
@@ -31,6 +33,7 @@ namespace HamburgerciProject.Application.IoC
             builder.RegisterType<AppUserRepository>().As<IAppUserRepository>().InstancePerLifetimeScope();
 
             builder.RegisterType<Mapper>().As<IMapper>().InstancePerLifetimeScope();
+
 
             #region AutoMapper
             builder.Register(context => new MapperConfiguration(cfg =>

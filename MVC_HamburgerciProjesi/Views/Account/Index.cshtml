@@ -1,5 +1,7 @@
 ﻿@using HamburgerciProject.Application.Models.DTOs;
-@model IEnumerable<RegisterDTO>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@model IPagedList<RegisterDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,20 +10,29 @@
 
 <h1>Index</h1>
 
-
-
-
 <p>
     <a asp-action="Create">Yeni Menü Oluştur</a>
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Kullanıcı ara: @Html.TextBox("deger")
+        <input type="submit" value="Find" />
+    </p>
+}
+<p>
+    <button type="reset">
+        <a href="Index" style="color:black; text-decoration:none">Yenile</a>
+    </button>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                Username
             </th>
         </tr>
     </thead>
@@ -30,10 +41,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @item.Id
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    @item.UserName
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -44,6 +55,9 @@
         }
     </tbody>
 </table>
+<tr>
+    @Html.PagedListPager((IPagedList)Model, p=>Url.Action("Index",new{p}))
+</tr>
 
 
 

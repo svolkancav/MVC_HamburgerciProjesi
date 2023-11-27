@@ -4,6 +4,7 @@ using HamburgerciProject.Domain.Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace HamburgerciProject.Presentation.Controllers
 {
@@ -16,10 +17,25 @@ namespace HamburgerciProject.Presentation.Controllers
             _appUserService = appUserService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string deger,int p =1)
         {
-            List<RegisterDTO> users = await _appUserService.GetUsers();
-            return View(users);
+
+            if (!string.IsNullOrEmpty(deger))
+            {
+                List<RegisterDTO> users = await _appUserService.GetUsers();
+                List<RegisterDTO> seciliUsers = users.Where(x => x.UserName.ToLower().Contains(deger.ToLower())).ToList();
+
+                var pagedUsers = seciliUsers.ToPagedList(p, 3);
+                return View(pagedUsers);
+            }
+            else
+            {
+                List<RegisterDTO> users = await _appUserService.GetUsers();
+                var pagedUser = users.ToPagedList(p, 3);
+
+                return View(pagedUser);
+
+            }
         }
 
         [HttpGet]

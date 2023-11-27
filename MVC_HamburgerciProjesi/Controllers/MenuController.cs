@@ -3,6 +3,7 @@ using HamburgerciProject.Application.Services.MenuServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace HamburgerciProject.Presentation.Controllers
 {
@@ -15,11 +16,22 @@ namespace HamburgerciProject.Presentation.Controllers
             _menuService = menuService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string deger, int p = 1)
         {
+            if (!string.IsNullOrEmpty(deger))
+            {
+                List<MenuDTO> menus = await _menuService.GetMenus();
+                List<MenuDTO> seciliMenuler = menus.Where(x=>x.MenuAdi.ToLower().Contains(deger.ToLower())).ToList();
+                
+                return View(seciliMenuler.ToPagedList(p, 3));
+            }
+            else
+            {
+                List<MenuDTO> menuDTOs = await _menuService.GetMenus();
+                return View(menuDTOs.ToPagedList(p, 3));
+
+            }
             
-            List<MenuDTO> menuDTOs = await _menuService.GetMenus();
-            return View(menuDTOs);
         }
 
 

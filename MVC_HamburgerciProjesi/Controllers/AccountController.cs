@@ -9,6 +9,7 @@ using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using Microsoft.AspNetCore.Http;
+using X.PagedList;
 
 namespace HamburgerciProject.Presentation.Controllers
 {
@@ -31,9 +32,22 @@ namespace HamburgerciProject.Presentation.Controllers
             _iLogger = iLogger;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string deger, int p = 3)
         {
-            return View(await _iAppUser.GetUsers());
+            if (!string.IsNullOrEmpty(deger))
+            {
+                List<RegisterDTO> users = await _iAppUser.GetUsers();
+                List<RegisterDTO> seciliUsers = users.Where(x => x.UserName.ToLower().Contains(deger.ToLower())).ToList();
+
+                return View(seciliUsers.ToPagedList(p, 3));
+            }
+            else
+            {
+                List<RegisterDTO> users = await _iAppUser.GetUsers();
+                return View(users.ToPagedList(p, 3));
+
+            }
+
         }
         [HttpGet]
         public IActionResult Register()

@@ -1,5 +1,9 @@
 ﻿@using HamburgerciProject.Application.Models.DTOs;
-@model IEnumerable<RegisterDTO>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+
+@model IPagedList<RegisterDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,18 +12,30 @@
 
 <h1>Index</h1>
 
-
+@using (Html.BeginForm())
+{
+    <p>
+        User ara: @Html.TextBox("deger")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<p>
+    <button type="reset">
+        <a href="Index" style="color:black; text-decoration:none">Yenile</a>
+    </button>
+</p>
+s
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                UserName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserRole)
+                User Role
             </th>
         </tr>
     </thead>
@@ -28,19 +44,27 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    @item.UserName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @item.Email
                 </td>
                 <th>
-                    @Html.DisplayFor(modelItem => item.UserRole)
+                    @item.UserRole
                 </th>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
+
         }
+
     </tbody>
+
 </table>
+<tr>
+    @Html.PagedListPager((IPagedList)Model, p=>Url.Action("Index",new{p}))
+</tr>
+
+

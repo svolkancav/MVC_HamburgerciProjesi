@@ -1,5 +1,7 @@
 ﻿@using HamburgerciProject.Application.Models.DTOs;
-@model IEnumerable<MenuDTO>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@model IPagedList<MenuDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,14 +16,26 @@
     <p>
         <a asp-action="Create">Create New</a>
     </p>
-    <table class="table">
+@using (Html.BeginForm())
+{
+    <p>
+        Menu ara: @Html.TextBox("deger")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<p>
+    <button type="reset">
+        <a href="Index" style="color:black; text-decoration:none">Yenile</a>
+    </button>
+</p>
+<table class="table">
         <thead>
             <tr>
                 <th>
-                        @Html.DisplayNameFor(model => model.MenuAdi)
+                        Menu Adı
                 </th>
                 <th>
-                        @Html.DisplayNameFor(model => model.MenuFiyati)
+                        Menu Fiyatı
                 </th>
             </tr>
         </thead>
@@ -30,10 +44,10 @@
                 {
                 <tr>
                     <td>
-                            @Html.DisplayFor(modelItem => item.MenuAdi)
+                            @item.MenuAdi
                     </td>
                     <td>
-                            @Html.DisplayFor(modelItem => item.MenuFiyati)
+                            @item.MenuFiyati
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
@@ -44,6 +58,9 @@
                 }
         </tbody>
     </table>
+<tr>
+    @Html.PagedListPager((IPagedList)Model, p=>Url.Action("Index",new{p}))
+</tr>
 
 
 
