@@ -28,33 +28,19 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
    builder.Configuration.GetConnectionString("defaultconnectionfeyza")));
 
-
-//builder.Services.AddSession(options =>
-//{
-//	options.Cookie.Name = ".MVC_HamburgerciProjesi.Session";
-//	options.IdleTimeout = TimeSpan.FromMinutes(5);
-//	options.Cookie.HttpOnly = true;
-//	options.Cookie.IsEssential = true;
-//});
-
-
-
-
-//Cookie ler için eklendi. Deneme
-//builder.Services
-//    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-//      .RequireAuthenticatedUser()
-//      .Build();
-//});
-
+builder.Services.AddSession(opt=>opt.IdleTimeout = TimeSpan.FromSeconds(200));
 
 builder.Services.AddIdentity<AppUser, IdentityRole<int>>
     (
-    options => options.SignIn.RequireConfirmedEmail = true
+        options => options.SignIn.RequireConfirmedEmail = true
     ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<IdentityValidator>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(x=>
+    {
+        x.LoginPath = "/Account/Login";
+    });
+
 
 
 
@@ -77,55 +63,21 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseSession();
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+
+//app.UseAuthorization();
+app.UseAuthentication();
+
 SeedData.Seed(app);
 
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.UseEndpoints(endpoints =>
-{
-endpoints.MapAreaControllerRoute(
-   name: "UserArea",
-   areaName: "User",
-   pattern: "{controller=Account}/{action=Login}"
-   );
-endpoints.MapAreaControllerRoute(
-name: "UserArea",
-areaName: "User",
-pattern: "{controller=Home}/{action=Index}/{id?}"
-);
-endpoints.MapAreaControllerRoute(
-name: "UserArea",
-areaName: "User",
-pattern: "{controller=Account}/{action=Register}"
-);
-endpoints.MapAreaControllerRoute(
-name: "UserArea",
-areaName: "User",
-pattern: "{controller=Siparis}/{action=Index}"
-);
-endpoints.MapAreaControllerRoute(
-name: "AdminArea",
-areaName: "Admin",
-pattern: "{controller=UserManager}/{action=Index}"
-);
-endpoints.MapAreaControllerRoute(
-name: "AdminArea",
-areaName: "Admin",
-pattern: "{controller=Menu}/{action=Index}"
-);
-
-});
-
-
 
 app.Run();
