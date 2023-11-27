@@ -233,7 +233,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ToplamTutar")
+                    b.Property<decimal?>("ToplamTutar")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdateDate")

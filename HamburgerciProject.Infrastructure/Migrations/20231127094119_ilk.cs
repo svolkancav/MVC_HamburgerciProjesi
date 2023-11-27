@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HamburgerciProject.Infrastructure.Migrations
 {
-    public partial class first : Migration
+    public partial class ilk : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -207,7 +207,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Adedi = table.Column<int>(type: "int", nullable: false),
-                    ToplamTutar = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ToplamTutar = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true),

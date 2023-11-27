@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HamburgerciProject.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231126164304_first")]
-    partial class first
+    [Migration("20231127094119_ilk")]
+    partial class ilk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -235,7 +235,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ToplamTutar")
+                    b.Property<decimal?>("ToplamTutar")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdateDate")
