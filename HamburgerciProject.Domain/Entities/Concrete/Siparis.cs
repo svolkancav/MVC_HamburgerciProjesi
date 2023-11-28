@@ -19,7 +19,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; }
         [NotMapped]
-        public List<string>? İçerik { get; set; }
+        public string? İçerik { get; set; }
         public AppUser appUser { get; set; }
 
         [ForeignKey(nameof(AppUser))]

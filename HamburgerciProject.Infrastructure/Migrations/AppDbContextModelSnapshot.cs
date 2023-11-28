@@ -210,6 +210,58 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.ToTable("MenuSiparis");
                 });
 
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Sepet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Adet")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Boyut")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EkstraMalzemeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExtraMalzemeID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Fiyat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("MenuID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EkstraMalzemeId");
+
+                    b.HasIndex("MenuID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Sepetler");
+                });
+
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Siparis", b =>
                 {
                     b.Property<int>("Id")
@@ -233,7 +285,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ToplamTutar")
+                    b.Property<decimal?>("ToplamTutar")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -417,10 +469,33 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     b.Navigation("siparis");
                 });
 
+            modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Sepet", b =>
+                {
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", "EkstraMalzeme")
+                        .WithMany()
+                        .HasForeignKey("EkstraMalzemeId");
+
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuID");
+
+                    b.HasOne("HamburgerciProject.Domain.Entities.Concrete.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EkstraMalzeme");
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.Siparis", b =>
                 {
                     b.HasOne("HamburgerciProject.Domain.Entities.Concrete.AppUser", "appUser")
-                        .WithMany("siparisler")
+                        .WithMany("Siparisler")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -481,7 +556,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.AppUser", b =>
                 {
-                    b.Navigation("siparisler");
+                    b.Navigation("Siparisler");
                 });
 
             modelBuilder.Entity("HamburgerciProject.Domain.Entities.Concrete.EkstraMalzeme", b =>

@@ -207,7 +207,7 @@ namespace HamburgerciProject.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Adedi = table.Column<int>(type: "int", nullable: false),
-                    ToplamTutar = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ToplamTutar = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -223,6 +223,45 @@ namespace HamburgerciProject.Infrastructure.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sepetler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MenuID = table.Column<int>(type: "int", nullable: true),
+                    ExtraMalzemeID = table.Column<int>(type: "int", nullable: true),
+                    EkstraMalzemeId = table.Column<int>(type: "int", nullable: true),
+                    Adet = table.Column<int>(type: "int", nullable: false),
+                    Boyut = table.Column<int>(type: "int", nullable: false),
+                    Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sepetler", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sepetler_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sepetler_EkstraMalzemeler_EkstraMalzemeId",
+                        column: x => x.EkstraMalzemeId,
+                        principalTable: "EkstraMalzemeler",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Sepetler_Menuler_MenuID",
+                        column: x => x.MenuID,
+                        principalTable: "Menuler",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -323,6 +362,21 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 column: "MenuId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Sepetler_EkstraMalzemeId",
+                table: "Sepetler",
+                column: "EkstraMalzemeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sepetler_MenuID",
+                table: "Sepetler",
+                column: "MenuID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sepetler_UserId",
+                table: "Sepetler",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Siparisler_AppUserId",
                 table: "Siparisler",
                 column: "AppUserId");
@@ -352,16 +406,19 @@ namespace HamburgerciProject.Infrastructure.Migrations
                 name: "MenuSiparis");
 
             migrationBuilder.DropTable(
+                name: "Sepetler");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Siparisler");
 
             migrationBuilder.DropTable(
                 name: "EkstraMalzemeler");
 
             migrationBuilder.DropTable(
                 name: "Menuler");
-
-            migrationBuilder.DropTable(
-                name: "Siparisler");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

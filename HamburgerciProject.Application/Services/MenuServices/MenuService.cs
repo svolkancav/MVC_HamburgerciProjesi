@@ -58,7 +58,6 @@ namespace HamburgerciProject.Application.Services.MenuServices
                 Id = menu.Id,
                 MenuAdi = menu.MenuAdi,
                 MenuFiyati = menu.MenuFiyati,
-                ImagePath = menu.ImagePath
             };
             return menuDTO;
         }

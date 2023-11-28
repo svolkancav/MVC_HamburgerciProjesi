@@ -1,0 +1,43 @@
+﻿@using HamburgerciProject.Application.Models.DTOs;
+@using HamburgerciProject.Domain.Entities.Concrete;
+﻿@using Microsoft.AspNetCore.Identity;
+
+@inject UserManager<AppUser> UserManager
+
+@model SiparisDTO
+@{
+	decimal? totalFiyat = 0;
+	AppUser user = await UserManager.GetUserAsync(User);
+}
+<table class="table table-hover table-warning">
+	<tr>
+		<th>Ürünleriniz</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
+	@foreach (var item in Model.Sepettekiler)
+	{
+		totalFiyat += item.Fiyat;
+		<tr>
+			<td>@item.Menu.MenuAdi @item.Boyut.ToString() x @item.Adet.ToString()</td>
+			<td><button type="button" class="btn btn-outline-danger" onclick="SepettenSil(@item.SepetId)">-</button></td>
+			<td>@item.Adet</td>
+			<td><button type="button" class="btn btn-outline-success" onclick="AdetArttır(@item.SepetId)">+</button></td>
+			<td>@item.Fiyat TL</td>
+		</tr>
+	}
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>@totalFiyat TL</td>
+	</tr>
+</table>
+<div>
+	<input type="hidden" value="@user.Id" id="userID" />
+</div>
+<a class="btn product-btn btn-secondary" asp-action="SepetiOnayla" asp-route-id="@user.Id">Siparişi Tamamla</a>

@@ -92,7 +92,7 @@ namespace HamburgerciProject.Application.Services.SiparisServices
                     orderBy: x => x.OrderBy(x => x.EkstraAdi)
                     ),
                 Menuler = await _menusRepository.GetFilteredList(
-                    select: x => new MenuVM()
+                    select: x => new Menu()
                     {
                         Id = x.Id,
                         ImagePath = x.ImagePath,
@@ -102,71 +102,61 @@ namespace HamburgerciProject.Application.Services.SiparisServices
                     },
                     where: x => x.Status != Status.Inactive,
                     orderBy: x => x.OrderBy(x => x.MenuAdi)
-                    
+
                     ),
             };
             return model;
         }
 
-        public async Task<CreateSiparisDTO> SiparisOlustur(List<MenuVM> menuler, List<EkstraMalzemeVM> ekMalzemeler)
-        {
-            
-            decimal? toplamFiyatMenuler = 0;
-            decimal? tutar = 0;
-            decimal? toplamFiyatEkMalzemeler = 0;
-            
+        
+
+        //public async Task<CreateSiparisDTO> SipariseMenuEkle(MenuVM menu, List<EkstraMalzemeVM> ekMalzemeler)
+        //{
+        //    decimal? tutar = 0;
+        //    decimal? toplamFiyatEkMalzemeler = 0;
+        //    string icerik = ($"{menu.MenuAdi} - {menu.Boyutu}  x {menu.MenuAdedi} "); // Todo: Ekmalzemeler tek tek buraya eklenmeli.
+        //    // menuadi + Boy + Adedi + (ekstra Malzemeler)
 
 
-            foreach (var menu in menuler)
-            {
-                int menuAdedi = menu.MenuAdedi;
-                switch (menu.Boyutu)
-                {
-                    case Boyut.Büyük:
-                        tutar = 1.4m * (menu.MenuFiyati) * menu.MenuAdedi;
-                        break;
-                    case Boyut.Orta:
-                        tutar = 1.2m * (menu.MenuFiyati) * menu.MenuAdedi;
-                        break;
-                    case Boyut.Küçük:
-                        tutar = menu.MenuFiyati * menu.MenuAdedi;
-                        break;
-                    default:
-                        break;
-                }
+        //    switch (menu.Boyutu)
+        //    {
+        //        case Boyut.Büyük:
+        //            tutar = 1.4m * (menu.MenuFiyati) * menu.MenuAdedi;
+        //            break;
+        //        case Boyut.Orta:
+        //            tutar = 1.2m * (menu.MenuFiyati) * menu.MenuAdedi;
+        //            break;
+        //        case Boyut.Küçük:
+        //            tutar = menu.MenuFiyati * menu.MenuAdedi;
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
+        //    foreach (var ek in ekMalzemeler)
+        //    {
+        //        toplamFiyatEkMalzemeler += ek.EkstraFiyat * ek.EkstraMalzemeAdedi;
+        //    }
 
-                toplamFiyatMenuler += tutar;
-            }
+        //    string ekMalzemeIcerik;
 
+        //    List<CreateSiparisDTO> girilenSiparisListesi = new List<CreateSiparisDTO>()
+        //    {
+        //        new CreateSiparisDTO
+        //        {
+        //            MenuAdi = menu.MenuAdi,
+        //            EkMalzemeler = ekMalzemeler,
+        //            MenuFiyatlarToplami = tutar,
+        //            EkstraMalzemeToplamTutar = toplamFiyatEkMalzemeler,
+        //            ToplamTutar = tutar+toplamFiyatEkMalzemeler,
+        //            İçerik = icerik
+        //        }
+        //    };
+        //}
 
-            foreach (var ek in ekMalzemeler)
-            {
-                toplamFiyatEkMalzemeler += ek.EkstraFiyat * ek.EkstraMalzemeAdedi;
-            }
-
-            
-            CreateSiparisDTO createSiparisDTO = new CreateSiparisDTO();
-            createSiparisDTO.Menuler = menuler;
-            createSiparisDTO.EkMalzemeler = ekMalzemeler;
-            createSiparisDTO.MenuFiyatlarToplami = toplamFiyatMenuler;
-            createSiparisDTO.EkstraMalzemeToplamTutar = toplamFiyatEkMalzemeler;
-            createSiparisDTO.ToplamTutar = createSiparisDTO.MenuFiyatlarToplami + createSiparisDTO.EkstraMalzemeToplamTutar;
-         
-            List<string> list = new List<string>();
-
-            foreach (var item in menuler)
-            {
-                list.Append($"{item.MenuAdi} {item.Boyutu} {item.MenuAdedi}");
-            }
-
-            createSiparisDTO.İçerik = list;
-
-
-            // menuadi + Boy + Adedi + (ekstra Malzemeler)
-
-            return createSiparisDTO;
-
-        }
+        //public Task<CreateSiparisDTO> SiparisOlustur(List<MenuVM> menuler, List<EkstraMalzemeVM> ekMalzemeler)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

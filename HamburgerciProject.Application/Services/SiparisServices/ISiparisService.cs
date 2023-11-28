@@ -17,6 +17,6 @@ namespace HamburgerciProject.Application.Services.SiparisServices
         Task<List<CreateSiparisDTO>> GetSiparisler();
         //Task<CreateSiparisDTO> SiparisGir();
 
-        Task<CreateSiparisDTO> SiparisOlustur(List<MenuVM> menuler, List<EkstraMalzemeVM> ekMalzemeler);
+        //Task<CreateSiparisDTO> SiparisOlustur(List<MenuVM> menuler, List<EkstraMalzemeVM> ekMalzemeler);
     }
 }

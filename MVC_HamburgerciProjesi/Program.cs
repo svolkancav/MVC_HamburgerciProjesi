@@ -1,21 +1,12 @@
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using HamburgerciProject.Application.IoC;
-using HamburgerciProject.Application.Services.AppUserService;
-using HamburgerciProject.Application.Services.EkstraMalzemeServices;
-using HamburgerciProject.Application.Services.MenuServices;
-using HamburgerciProject.Application.Services.SiparisServices;
 using HamburgerciProject.Domain.Entities.Concrete;
-using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Context;
-using HamburgerciProject.Infrastructure.Repositories;
 using HamburgerciProject.Presentation.Models;
 using HamburgerciProject.Presentation.SeedData;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Autofac.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,5 +70,6 @@ SeedData.Seed(app);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

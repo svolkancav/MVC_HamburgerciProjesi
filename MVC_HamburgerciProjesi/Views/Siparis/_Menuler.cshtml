@@ -1,0 +1,30 @@
+﻿@using HamburgerciProject.Application.Models.DTOs;
+@using HamburgerciProject.Domain.Entities.Concrete;
+@using MVC_HamburgerciProjesi.Models.Enum;
+
+@model SiparisDTO
+
+<div>
+	<table class="table table-hover table-primary table-striped">
+
+		<tr>
+			<th>Menü Adı</th>
+			<th>Fiyat</th>
+			<th></th>
+		</tr>
+		@foreach (MenuDTO menu in Model.Menuler)
+		{
+
+			
+			<div class="product">
+				<div class="product-info">
+					<h4 class="product-title">
+						@menu.MenuAdi
+					</h4>
+					<p class="product-price">@menu.MenuFiyati</p>
+					<a class="product-btn" href="#">Sepete Ekle</a>
+				</div>
+			</div>
+		}
+	</table>
+</div>

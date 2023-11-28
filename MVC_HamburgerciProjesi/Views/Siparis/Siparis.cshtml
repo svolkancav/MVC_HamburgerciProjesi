@@ -1,0 +1,40 @@
+﻿@using HamburgerciProject.Application.Models.DTOs;
+@using HamburgerciProject.Domain.Entities.Concrete;
+
+@model List<CreateSiparisDTO>
+@{
+    ViewData["Title"] = "Siparis";
+}
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Siparişlerim</h1>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Menü Adı</th>
+            <th>Boyut</th>
+            <th>Adet</th>
+            <th>Fiyat</th>
+            <th>Satın Alınma Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var siparis in Model)
+        {
+
+                <tr>
+                    <td>@siparis.MenuAdi</td>
+                    <td>@siparis.Boyut</td>
+                    <td>@siparis.Adedi</td>
+                    <td>@siparis.MenuFiyatlarToplami</td>
+                    <td>@siparis.CreatedDate</td>
+                </tr>
+
+        }
+    </tbody>
+
+</table>
