@@ -15,7 +15,7 @@ namespace HamburgerciProject.Application.Models.DTOs
         public int Id { get; set; }
         public string MenuAdi { get; set; }
         public decimal MenuFiyati { get; set; }
-        public string ImagePath { get; set; }
+        public IFormFile ImagePath { get; set; }
 
         [PictureFileExtension]
         public IFormFile UploadPath { get; set; }

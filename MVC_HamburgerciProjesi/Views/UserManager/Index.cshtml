@@ -7,6 +7,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
 
 }
 
@@ -53,8 +54,8 @@
                     @item.UserRole
                 </th>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" id="DeleteBtn" onclick="return confirm('Silmek istediğinize emin misiniz ?');">Delete</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 </td>
             </tr>
 

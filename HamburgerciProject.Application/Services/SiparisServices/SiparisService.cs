@@ -59,7 +59,10 @@ namespace HamburgerciProject.Application.Services.SiparisServices
                 {
                     Id = x.Id,
                     ToplamTutar = x.ToplamTutar,
-                    İçerik = x.İçerik
+                    İçerik = x.İçerik,
+                    UserId = x.AppUserId,
+                    MenuAdi = x.İçerik,
+                    MenuFiyatlarToplami = x.ToplamTutar,
 
                 },
                 where: x => x.Status != Status.Inactive,

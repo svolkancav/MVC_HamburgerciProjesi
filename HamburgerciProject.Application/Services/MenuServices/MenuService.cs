@@ -18,27 +18,37 @@ namespace HamburgerciProject.Application.Services.MenuServices
 
         public async Task Create(MenuDTO model)
         {
-            Menu menu = new Menu()
-            {
-                MenuAdi = model.MenuAdi,
-                MenuFiyati = model.MenuFiyati,
-                CreateDate = model.CreateDate,
+            Menu menu = new Menu();
 
-            };
             if (model.UploadPath != null)
             {
+               
+                var extension = Path.GetExtension(model.ImagePath.FileName);
+                var newimagename = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", newimagename);
+                var memoryStream = new MemoryStream();
+                var stream = new FileStream(location, FileMode.Create);
+                model.ImagePath.CopyTo(memoryStream);
+                menu.ImagePath = newimagename;
                 // using SixLabors.ImageSharp;
-                Image image = Image.Load(model.UploadPath.OpenReadStream());
-                image.Mutate(x => x.Resize(600, 560));
+                //Image image = Image.Load(model.UploadPath.OpenReadStream());
+                //image.Mutate(x => x.Resize(600, 560));
 
-                Guid guid = new Guid();
+                //Guid guid = new Guid();
 
-                image.Save($"wwwroot/images/{guid}"); //foler'ın altına kaydettim.
+                //image.Save($"wwwroot/images/{guid}"); //foler'ın altına kaydettim.
 
-                menu.ImagePath = $"/images/{guid}.jpg";
+                //menu.ImagePath = $"/images/{guid}.jpg";
             }
             else
+            {
                 menu.ImagePath = $"/images/defaultpost.jpg";
+            }
+
+            menu.MenuAdi = model.MenuAdi;
+            menu.MenuFiyati = model.MenuFiyati;
+            menu.CreateDate = model.CreateDate;
+
             await _menuRepository.Create(menu);
         }
 
