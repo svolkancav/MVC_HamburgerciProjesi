@@ -13,7 +13,7 @@ namespace HamburgerciProject.Domain.Entities.Concrete
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; }
         public string Password { get; set; }
-        public string UserRole { get; set; }
+        public string UserRole { get; set; } = "User";
         public int? ConfirmCode { get; set; }
         public ICollection<Siparis> Siparisler { get; set; }
 

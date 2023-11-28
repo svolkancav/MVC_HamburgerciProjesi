@@ -106,7 +106,7 @@ namespace HamburgerciProject.Presentation.Controllers
                     ViewBag.ErrorTitle = "Registration successful";
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
                             "email, by clicking on the confirmation link we have emailed you";
-                    return View();
+                    return RedirectToAction("Login", "Account");
 
                 }
 
@@ -178,29 +178,34 @@ namespace HamburgerciProject.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
-                if (appUser.Status == Domain.Enum.Status.Active)
+                if (appUser is not null)
                 {
-                    SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
-                    if (result.Succeeded)
+                    if (appUser.Status == Domain.Enum.Status.Active)
                     {
-                        //HttpContext.Response.Cookies.Append("UserName", appUser.UserName);
-                        //HttpContext.Response.Cookies.Append("UserRole", appUser.UserRole);
-                        //HttpContext.Response.Cookies.Append("Id", appUser.Id.ToString());
-
-                        if (appUser.UserRole == "User")
+                        SignInResult result = await _signInmanager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);
+                        if (result.Succeeded)
                         {
-                            return RedirectToAction("Index", "Siparis");
+                            //HttpContext.Response.Cookies.Append("UserName", appUser.UserName);
+                            //HttpContext.Response.Cookies.Append("UserRole", appUser.UserRole);
+                            //HttpContext.Response.Cookies.Append("Id", appUser.Id.ToString());
+
+                            if (appUser.UserRole == "User")
+                            {
+                                return RedirectToAction("Index", "Siparis");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "UserManager");
+                            }
+
+
+
                         }
-                        else
-                        {
-                            return RedirectToAction("Index", "UserManager");
-                        }
-
-
-
+                        ModelState.AddModelError("", "Yanlış kullanıcı");
                     }
                     ModelState.AddModelError("", "Yanlış kullanıcı");
                 }
+                
             }
             return View(model);
         }

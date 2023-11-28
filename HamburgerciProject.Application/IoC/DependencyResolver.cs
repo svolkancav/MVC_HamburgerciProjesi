@@ -5,6 +5,7 @@ using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Application.Services.AppUserService;
 using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using HamburgerciProject.Application.Services.MenuServices;
+using HamburgerciProject.Application.Services.SepetServices;
 using HamburgerciProject.Application.Services.SiparisServices;
 using HamburgerciProject.Domain.Repositories;
 using HamburgerciProject.Infrastructure.Repositories;
@@ -31,6 +32,10 @@ namespace HamburgerciProject.Application.IoC
             builder.RegisterType<AppUserService>().As<IAppUserService>().InstancePerLifetimeScope();
 
             builder.RegisterType<AppUserRepository>().As<IAppUserRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<SepetRepository>().As<ISepetRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<SepetService>().As<ISepetService>().InstancePerLifetimeScope();
 
             builder.RegisterType<Mapper>().As<IMapper>().InstancePerLifetimeScope();
 
