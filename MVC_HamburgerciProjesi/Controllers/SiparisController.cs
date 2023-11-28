@@ -1,19 +1,10 @@
 ﻿using HamburgerciProject.Application.Models.DTOs;
-using HamburgerciProject.Application.Models.VMs;
-using HamburgerciProject.Application.Services.AppUserService;
-using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using HamburgerciProject.Application.Services.MenuServices;
 using HamburgerciProject.Application.Services.SepetServices;
 using HamburgerciProject.Application.Services.SiparisServices;
 using HamburgerciProject.Domain.Entities.Concrete;
-using HamburgerciProject.Domain.Repositories;
-using HamburgerciProject.Infrastructure.Context;
-using HamburgerciProject.Presentation.Models.VMs;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVC_HamburgerciProjesi.Models.Enum;
-using System.Collections.Generic;
 using System.Data;
 using System.Security.Claims;
 using X.PagedList;
@@ -66,13 +57,9 @@ namespace HamburgerciProject.Presentation.Controllers
 
     public class SiparisController : Controller
     {
-
-
         private readonly IMenuService menuService;
         private readonly ISepetService sepetService;
         private readonly ISiparisService siparisService;
-
-
 
         public SiparisController(IMenuService menuService, ISepetService sepetService, ISiparisService siparisService)
         {
@@ -88,6 +75,7 @@ namespace HamburgerciProject.Presentation.Controllers
             CreateSiparisDTO createSiparis = new CreateSiparisDTO();
             return View(createSiparis);
         }
+
         public async Task<IActionResult> Index(string deger, int p = 3) // int p değerini pagination için verdik.using X.PagedList; kullanıldı. string deger ise search için 
         {
             if (!string.IsNullOrEmpty(deger))
@@ -184,7 +172,6 @@ namespace HamburgerciProject.Presentation.Controllers
                 return View();
             }
 
-
             //var sepettekiler = new List<SepetDTO>();
             //sepettekiler = await sepetService.GetAll();
             //var userSepet = sepettekiler.Where(x => x.UserId == id).ToList();
@@ -205,9 +192,6 @@ namespace HamburgerciProject.Presentation.Controllers
             //        sepetService.Delete(item);
             //    }
             //}
-
-
-
 
 
         }
@@ -250,10 +234,8 @@ namespace HamburgerciProject.Presentation.Controllers
             int userID = Convert.ToInt32(userIDClaim.Value);
 
             List<CreateSiparisDTO> siparisler = await siparisService.GetSiparisler();
-            var userSiparisler = new List<CreateSiparisDTO>();
-            userSiparisler = siparisler.Where(x => x.UserId == userID).ToList();
 
-            return View(userSiparisler);
+            return View(siparisler.Where(x => x.UserId == userID).ToList());
         }
 
         [HttpPost]
@@ -270,6 +252,7 @@ namespace HamburgerciProject.Presentation.Controllers
 
             return PartialView("_SiparisListesi");
         }
+
         [HttpPost]
         public async Task<IActionResult> SepetYukle(Sepet sepetTemizleDTO)
         {

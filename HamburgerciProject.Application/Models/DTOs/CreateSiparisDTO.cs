@@ -17,6 +17,7 @@ namespace HamburgerciProject.Application.Models.DTOs
         public CreateSiparisDTO()
         {
             Menuler = new List<Menu>();
+            Menu = new Menu();
         }
         public int Id { get; set; }
         public string? İçerik { get; set; }
@@ -36,5 +37,6 @@ namespace HamburgerciProject.Application.Models.DTOs
         public List<SepetDTO> Sepettekiler { get; set; }
         public int ekleme { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public Menu Menu { get; set; }
     }
 }
