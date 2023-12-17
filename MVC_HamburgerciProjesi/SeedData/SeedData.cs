@@ -4,7 +4,6 @@ using HamburgerciProject.Domain.Entities.Concrete;
 using MVC_HamburgerciProjesi.Models.Enum;
 using HamburgerciProject.Domain.Enum;
 using System.Net.Mime;
-using HamburgerciProject.Application.Models.VMs;
 
 namespace HamburgerciProject.Presentation.SeedData
 {

@@ -1,5 +1,5 @@
 ﻿using HamburgerciProject.Application.Extensions;
-using HamburgerciProject.Application.Models.VMs;
+using HamburgerciProject.Application.IoC.Models.VMs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Enum;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Application.Models.DTOs
+namespace HamburgerciProject.Application.IoC.Models.DTOs
 {
     public class CreateSiparisDTO
     {

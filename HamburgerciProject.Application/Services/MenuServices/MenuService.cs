@@ -1,7 +1,7 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
-using HamburgerciProject.Domain.Entities.Concrete;
+﻿using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using AutoMapper;
+using HamburgerciProject.Application.IoC.Models.DTOs;
 
 namespace HamburgerciProject.Application.Services.MenuServices
 {

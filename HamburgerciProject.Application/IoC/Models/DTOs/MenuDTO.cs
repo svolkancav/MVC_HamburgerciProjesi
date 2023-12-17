@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Application.Models.DTOs
+namespace HamburgerciProject.Application.IoC.Models.DTOs
 {
     public class MenuDTO
     {

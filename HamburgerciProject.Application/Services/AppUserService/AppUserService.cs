@@ -1,5 +1,4 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
-using HamburgerciProject.Domain.Entities.Concrete;
+﻿using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -9,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
 using HamburgerciProject.Infrastructure.Repositories;
+using HamburgerciProject.Application.IoC.Models.DTOs;
 
 namespace HamburgerciProject.Application.Services.AppUserService
 {

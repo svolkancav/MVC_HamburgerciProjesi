@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Application.Models.VMs
+namespace HamburgerciProject.Application.IoC.Models.DTOs
 {
-    public class EkstraMalzemeVM
+    public class EkstraMalzemeDTO
     {
         public int Id { get; set; }
         public string EkstraAdi { get; set; }
         public decimal EkstraFiyat { get; set; }
-        public int EkstraMalzemeAdedi { get; set; }
     }
 }

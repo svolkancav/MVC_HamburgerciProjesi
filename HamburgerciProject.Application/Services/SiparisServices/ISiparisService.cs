@@ -1,4 +1,4 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿using HamburgerciProject.Application.IoC.Models.DTOs;
 using HamburgerciProject.Application.Models.VMs;
 using System;
 using System.Collections.Generic;
