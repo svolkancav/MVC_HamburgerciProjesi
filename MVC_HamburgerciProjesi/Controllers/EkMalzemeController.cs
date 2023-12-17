@@ -1,4 +1,4 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿using HamburgerciProject.Application.IoC.Models.DTOs;
 using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

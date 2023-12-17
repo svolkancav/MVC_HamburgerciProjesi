@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
 using HamburgerciProject.Application.AutoMapper;
-using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Application.Services.AppUserService;
 using HamburgerciProject.Application.Services.EkstraMalzemeServices;
 using HamburgerciProject.Application.Services.MenuServices;

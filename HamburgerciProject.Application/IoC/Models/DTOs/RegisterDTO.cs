@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace HamburgerciProject.Application.Models.DTOs
+namespace HamburgerciProject.Application.IoC.Models.DTOs
 {
     public class RegisterDTO
     {
@@ -25,7 +25,7 @@ namespace HamburgerciProject.Application.Models.DTOs
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string ConfirmedPassword { get; set; }
-       
+
         public string UserRole { get; set; } = "User";
         public string Email { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;

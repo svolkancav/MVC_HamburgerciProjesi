@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HamburgerciProject.Application.Models.DTOs;
+using HamburgerciProject.Application.IoC.Models.DTOs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using HamburgerciProject.Domain.Repositories;
 using System;

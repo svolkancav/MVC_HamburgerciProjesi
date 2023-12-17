@@ -1,17 +1,17 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿using HamburgerciProject.Application.IoC.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Application.Models.VMs
+namespace HamburgerciProject.Application.IoC.Models.VMs
 {
     public class SiparisVM
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string  Username { get; set; }
+        public string Username { get; set; }
         public decimal? ToplamTutar { get; set; }
         public List<MenuDTO> Menuler { get; set; }
         public List<EkstraMalzemeDTO> EkstraMalzemeler { get; set; }

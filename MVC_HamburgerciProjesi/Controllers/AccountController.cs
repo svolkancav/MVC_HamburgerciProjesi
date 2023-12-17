@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
-using HamburgerciProject.Application.Models.DTOs;
 using HamburgerciProject.Application.Services.AppUserService;
 using MimeKit;
 using MailKit.Net.Smtp;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
+using HamburgerciProject.Application.IoC.Models.DTOs;
 
 namespace HamburgerciProject.Presentation.Controllers
 {

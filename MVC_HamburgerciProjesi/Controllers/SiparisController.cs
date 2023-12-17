@@ -1,4 +1,4 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿using HamburgerciProject.Application.IoC.Models.DTOs;
 using HamburgerciProject.Application.Services.MenuServices;
 using HamburgerciProject.Application.Services.SepetServices;
 using HamburgerciProject.Application.Services.SiparisServices;

@@ -1,4 +1,4 @@
-﻿using HamburgerciProject.Application.Models.VMs;
+﻿using HamburgerciProject.Application.IoC.Models.VMs;
 using HamburgerciProject.Domain.Entities.Concrete;
 using MVC_HamburgerciProjesi.Models.Enum;
 using System;
@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Application.Models.DTOs
+namespace HamburgerciProject.Application.IoC.Models.DTOs
 {
     public class SiparisDTO
     {
-       
+
         public int Id { get; set; }
         public decimal? ToplamTutar { get; set; }
         public string MenuAdi { get; set; }

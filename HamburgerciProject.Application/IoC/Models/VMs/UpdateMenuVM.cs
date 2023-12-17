@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamburgerciProject.Application.Models.VMs
+namespace HamburgerciProject.Application.IoC.Models.VMs
 {
     public class UpdateMenuVM
     {

@@ -1,4 +1,4 @@
-﻿using HamburgerciProject.Application.Models.DTOs;
+﻿using HamburgerciProject.Application.IoC.Models.DTOs;
 using HamburgerciProject.Application.Services.AppUserService;
 using HamburgerciProject.Domain.Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
